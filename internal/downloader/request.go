@@ -10,8 +10,10 @@ const (
 type DownloadRequest struct {
 	URL       string       `json:"url"`
 	Type      DownloadType `json:"type"`
+	Quality   string       `json:"quality"`
 	OutputDir string       `json:"outputDir"`
 }
+
 
 type DownloadResult struct {
 	Message   string `json:"message"`

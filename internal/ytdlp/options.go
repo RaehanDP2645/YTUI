@@ -18,6 +18,8 @@ type Options struct {
 	URL        string
 	Kind       DownloadKind
 	Mode       Mode
+	Quality    string
 	OutputDir  string
 	FFmpegPath string
 }
+

@@ -6,8 +6,11 @@ document.querySelector('#app').innerHTML = `
   <main class="shell">
     <section class="panel">
       <div class="header">
-        <h1>YTUI</h1>
-        <p>YouTube video & music downloader</p>
+        <div>
+          <h1>YTUI</h1>
+          <p>YouTube video & music downloader</p>
+        </div>
+        <span class="badge">Default Mode</span>
       </div>
 
       <div class="field">
@@ -15,20 +18,63 @@ document.querySelector('#app').innerHTML = `
         <input id="url" type="url" placeholder="https://www.youtube.com/watch?v=..." />
       </div>
 
-      <div class="grid">
+      <div class="form-grid">
         <div class="field">
           <label for="type">Type</label>
           <select id="type">
-            <option value="video">Video MP4</option>
-            <option value="music">Music MP3</option>
+            <option value="video">Video</option>
+            <option value="music">Music</option>
           </select>
         </div>
 
         <div class="field">
-          <label for="outputDir">Output Folder</label>
-          <input id="outputDir" type="text" placeholder="Kosongkan untuk Downloads/YTUI" />
+          <label for="mode">Mode</label>
+          <select id="mode">
+            <option value="default">Default</option>
+            <option value="custom">Custom</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="format">Format</label>
+          <select id="format">
+            <option value="mp4">MP4</option>
+            <option value="mkv">MKV</option>
+            <option value="webm">WEBM</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="quality">Quality</label>
+          <select id="quality">
+            <option value="best">Best</option>
+            <option value="1080">1080p</option>
+            <option value="720">720p</option>
+            <option value="480">480p</option>
+            <option value="360">360p</option>
+          </select>
         </div>
       </div>
+
+      <details class="advanced">
+        <summary>Advanced Options</summary>
+
+        <div class="advanced-grid">
+          <div class="field">
+            <label for="outputDir">Output Folder</label>
+            <input id="outputDir" type="text" placeholder="Kosongkan untuk Downloads/YTUI" />
+          </div>
+
+          <div class="field">
+            <label for="speedMode">Speed Mode</label>
+            <select id="speedMode">
+              <option value="normal">Normal</option>
+              <option value="fast">Fast</option>
+              <option value="very-fast">Very Fast</option>
+            </select>
+          </div>
+        </div>
+      </details>
 
       <button id="downloadBtn">Download</button>
 
@@ -55,6 +101,9 @@ document.querySelector('#app').innerHTML = `
 
 const urlInput = document.querySelector('#url');
 const typeSelect = document.querySelector('#type');
+const modeSelect = document.querySelector('#mode');
+const formatSelect = document.querySelector('#format');
+const qualitySelect = document.querySelector('#quality');
 const outputDirInput = document.querySelector('#outputDir');
 const downloadBtn = document.querySelector('#downloadBtn');
 const statusBox = document.querySelector('#status');
@@ -68,11 +117,19 @@ EventsOn('download:progress', (event) => {
   updateProgress(event);
 });
 
+typeSelect.addEventListener('change', syncFormatOptions);
+modeSelect.addEventListener('change', syncModeState);
+
 downloadBtn.addEventListener('click', async () => {
   const url = urlInput.value.trim();
 
   if (!url) {
     setStatus('URL tidak boleh kosong.', 'error');
+    return;
+  }
+
+  if (modeSelect.value === 'custom') {
+    setStatus('Custom mode belum aktif. Kita aktifkan di tahap berikutnya.', 'error');
     return;
   }
 
@@ -89,6 +146,7 @@ downloadBtn.addEventListener('click', async () => {
     const result = await DownloadDefault({
       url,
       type: typeSelect.value,
+      quality: qualitySelect.value,
       outputDir: outputDirInput.value.trim(),
     });
 
@@ -99,6 +157,50 @@ downloadBtn.addEventListener('click', async () => {
     downloadBtn.disabled = false;
   }
 });
+
+function syncFormatOptions() {
+  if (typeSelect.value === 'music') {
+    formatSelect.innerHTML = `
+      <option value="mp3">MP3</option>
+      <option value="m4a">M4A</option>
+      <option value="opus">OPUS</option>
+      <option value="wav">WAV</option>
+      <option value="flac">FLAC</option>
+    `;
+
+    qualitySelect.innerHTML = `
+      <option value="best">Best</option>
+      <option value="320">320k</option>
+      <option value="256">256k</option>
+      <option value="192">192k</option>
+      <option value="128">128k</option>
+    `;
+
+    return;
+  }
+
+  formatSelect.innerHTML = `
+    <option value="mp4">MP4</option>
+    <option value="mkv">MKV</option>
+    <option value="webm">WEBM</option>
+  `;
+
+  qualitySelect.innerHTML = `
+    <option value="best">Best</option>
+    <option value="1080">1080p</option>
+    <option value="720">720p</option>
+    <option value="480">480p</option>
+    <option value="360">360p</option>
+  `;
+}
+
+function syncModeState() {
+  const isCustom = modeSelect.value === 'custom';
+
+  formatSelect.disabled = !isCustom;
+  qualitySelect.disabled = false;
+}
+
 
 function updateProgress(event) {
   const percent = Number(event.percent || 0);
@@ -135,3 +237,6 @@ function formatError(error) {
 
   return 'Terjadi error saat download.';
 }
+
+syncFormatOptions();
+syncModeState();

@@ -60,6 +60,7 @@ func DownloadDefault(ctx context.Context, req DownloadRequest) (DownloadResult, 
 		URL:        req.URL,
 		Kind:       mapDownloadKind(req.Type),
 		Mode:       ytdlp.ModeDefault,
+		Quality:    req.Quality,
 		OutputDir:  outputDir,
 		FFmpegPath: ffmpegPath,
 	})

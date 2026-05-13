@@ -3,6 +3,7 @@ export namespace downloader {
 	export class DownloadRequest {
 	    url: string;
 	    type: string;
+	    quality: string;
 	    outputDir: string;
 	
 	    static createFrom(source: any = {}) {
@@ -13,6 +14,7 @@ export namespace downloader {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.url = source["url"];
 	        this.type = source["type"];
+	        this.quality = source["quality"];
 	        this.outputDir = source["outputDir"];
 	    }
 	}
