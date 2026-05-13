@@ -1,0 +1,2 @@
+build/windows/installer/*.nsi linguist-generated=true
+build/windows/installer/*.nsh linguist-generated=true
