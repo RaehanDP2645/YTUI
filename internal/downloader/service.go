@@ -8,6 +8,8 @@ import (
 	"os/exec"
 	"path/filepath"
 	"strings"
+
+	"YTUI/internal/ytdlp"
 )
 
 func DownloadDefault(ctx context.Context, req DownloadRequest) (DownloadResult, error) {
@@ -43,7 +45,16 @@ func DownloadDefault(ctx context.Context, req DownloadRequest) (DownloadResult, 
 		return DownloadResult{}, err
 	}
 
-	args := buildDefaultArgs(req.Type, outputDir, ffmpegPath, req.URL)
+	args, err := ytdlp.BuildArgs(ytdlp.Options{
+		URL:        req.URL,
+		Kind:       mapDownloadKind(req.Type),
+		Mode:       ytdlp.ModeDefault,
+		OutputDir:  outputDir,
+		FFmpegPath: ffmpegPath,
+	})
+	if err != nil {
+		return DownloadResult{}, err
+	}
 
 	cmd := exec.CommandContext(ctx, ytDlpPath, args...)
 	cmd.Dir = outputDir
@@ -59,32 +70,12 @@ func DownloadDefault(ctx context.Context, req DownloadRequest) (DownloadResult, 
 	}, nil
 }
 
-func buildDefaultArgs(downloadType DownloadType, outputDir string, ffmpegPath string, url string) []string {
-	outputTemplate := filepath.Join(outputDir, "%(title)s.%(ext)s")
-
-	baseArgs := []string{
-		"--newline",
-		"--no-playlist",
-		"--ffmpeg-location", ffmpegPath,
-		"-o", outputTemplate,
-	}
-
+func mapDownloadKind(downloadType DownloadType) ytdlp.DownloadKind {
 	switch downloadType {
 	case DownloadTypeMusic:
-		return append(baseArgs,
-			"-f", "bestaudio",
-			"-x",
-			"--audio-format", "mp3",
-			"--embed-metadata",
-			"--embed-thumbnail",
-			url,
-		)
+		return ytdlp.KindMusic
 	default:
-		return append(baseArgs,
-			"-f", "bestvideo+bestaudio/best",
-			"--merge-output-format", "mp4",
-			url,
-		)
+		return ytdlp.KindVideo
 	}
 }
 

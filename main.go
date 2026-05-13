@@ -17,14 +17,22 @@ func main() {
 
 	// Create application with options
 	err := wails.Run(&options.App{
-		Title:  "youtube-downloader-desktop",
-		Width:  1024,
-		Height: 768,
+		Title:  "YTUI - YouTube Downloader",
+		Width:  980,
+		Height: 620,
+
+		MinWidth:  860,
+		MinHeight: 540,
+
+		DisableResize: false,
+		Fullscreen:    false,
+		Frameless:     false,
+
 		AssetServer: &assetserver.Options{
 			Assets: assets,
 		},
-		BackgroundColour: &options.RGBA{R: 27, G: 38, B: 54, A: 1},
-		OnStartup:        app.startup,
+		BackgroundColour: &options.RGBA{R: 244, G: 246, B: 248, A: 1},		
+		OnStartup:		app.startup,
 		Bind: []interface{}{
 			app,
 		},
