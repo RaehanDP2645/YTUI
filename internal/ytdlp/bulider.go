@@ -4,6 +4,8 @@ import (
 	"errors"
 	"path/filepath"
 	"strings"
+
+	// "golang.org/x/text/cases"
 )
 
 func BuildArgs(opts Options) ([]string, error) {
@@ -37,11 +39,12 @@ func BuildArgs(opts Options) ([]string, error) {
 }
 
 func buildDefaultArgs(opts Options) []string {
-	outputTemplate := filepath.Join(opts.OutputDir, "%(title)s.%(ext)s")
+	outputTemplate := buildOutputTemplate(opts)
 
 	baseArgs := []string{
 		"--newline",
 		"--no-playlist",
+		"--windows-filenames",
 		"--ffmpeg-location", opts.FFmpegPath,
 		"-o", outputTemplate,
 	}
@@ -67,6 +70,51 @@ func buildDefaultArgs(opts Options) []string {
 			"--merge-output-format", "mp4",
 			opts.URL,
 		)
+	}
+}
+
+func buildOutputTemplate(opts Options) string {
+	suffix := buildQualitySuffix(opts.Kind, opts.Quality)
+
+	filenameTemplate := "%(title)s"
+	if suffix != "" {
+		filenameTemplate += " - " + suffix
+	}
+
+	filenameTemplate += ".%(ext)s"
+
+	return filepath.Join(opts.OutputDir, filenameTemplate)
+}
+
+func buildQualitySuffix(kind DownloadKind, quality string) string {
+	quality = strings.TrimSpace(strings.ToLower(quality))
+
+	if kind == KindMusic {
+		switch quality {
+			case "320", "320k":
+				return "320K"
+			case "256", "256k":
+				return "256K"
+			case "192", "192k":
+				return "192K"
+			case "128", "128k":
+				return "128K"
+			default:
+				return "best"
+		}
+	}
+
+	switch quality {
+		case "1080", "1080p":
+			return "1080p"
+		case "720", "720p":
+			return "720p"
+		case "480", "480p":
+			return "480p"
+		case "360", "360p":
+			return "360p"
+		default:
+			return "best"
 	}
 }
 
