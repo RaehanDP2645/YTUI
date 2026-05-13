@@ -1,5 +1,6 @@
 import './style.css';
 import { DownloadDefault } from '../wailsjs/go/main/App';
+import { EventsOn } from '../wailsjs/runtime/runtime';
 
 document.querySelector('#app').innerHTML = `
   <main class="shell">
@@ -31,7 +32,23 @@ document.querySelector('#app').innerHTML = `
 
       <button id="downloadBtn">Download</button>
 
-      <div id="status" class="status idle">Ready</div>
+      <section class="progress-card">
+        <div class="progress-top">
+          <strong id="progressStatus">Ready</strong>
+          <span id="progressPercent">0%</span>
+        </div>
+
+        <div class="progress-track">
+          <div id="progressFill" class="progress-fill"></div>
+        </div>
+
+        <div class="progress-meta">
+          <span id="progressSpeed">Speed: -</span>
+          <span id="progressEta">ETA: -</span>
+        </div>
+
+        <div id="status" class="status idle">Ready</div>
+      </section>
     </section>
   </main>
 `;
@@ -41,6 +58,15 @@ const typeSelect = document.querySelector('#type');
 const outputDirInput = document.querySelector('#outputDir');
 const downloadBtn = document.querySelector('#downloadBtn');
 const statusBox = document.querySelector('#status');
+const progressStatus = document.querySelector('#progressStatus');
+const progressPercent = document.querySelector('#progressPercent');
+const progressFill = document.querySelector('#progressFill');
+const progressSpeed = document.querySelector('#progressSpeed');
+const progressEta = document.querySelector('#progressEta');
+
+EventsOn('download:progress', (event) => {
+  updateProgress(event);
+});
 
 downloadBtn.addEventListener('click', async () => {
   const url = urlInput.value.trim();
@@ -51,7 +77,13 @@ downloadBtn.addEventListener('click', async () => {
   }
 
   downloadBtn.disabled = true;
-  setStatus('Downloading...', 'loading');
+  updateProgress({
+    status: 'queued',
+    percent: 0,
+    speed: '-',
+    eta: '-',
+    message: 'Queued',
+  });
 
   try {
     const result = await DownloadDefault({
@@ -67,6 +99,25 @@ downloadBtn.addEventListener('click', async () => {
     downloadBtn.disabled = false;
   }
 });
+
+function updateProgress(event) {
+  const percent = Number(event.percent || 0);
+  const safePercent = Math.max(0, Math.min(100, percent));
+
+  progressStatus.textContent = event.message || event.status || 'Working';
+  progressPercent.textContent = `${safePercent.toFixed(1)}%`;
+  progressFill.style.width = `${safePercent}%`;
+  progressSpeed.textContent = `Speed: ${event.speed || '-'}`;
+  progressEta.textContent = `ETA: ${event.eta || '-'}`;
+
+  if (event.status === 'completed') {
+    setStatus('Download selesai.', 'success');
+  } else if (event.status === 'failed') {
+    setStatus('Download gagal.', 'error');
+  } else if (event.status === 'downloading') {
+    setStatus('Downloading...', 'loading');
+  }
+}
 
 function setStatus(message, type) {
   statusBox.textContent = message;
