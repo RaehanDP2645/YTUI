@@ -20,7 +20,18 @@ document.querySelector('#app').innerHTML = `
 
       <div class="batch-row">
         <button id="selectBatchBtn" class="secondary-button">Select .txt Batch File</button>
-        <span id="batchFileName">No batch file selected</span>
+        
+        <div class="batch-file">
+          <span id="batchFileName">No batch file selected</span>
+          <button
+            id="clearBatchBtn"
+            class="clear-batch-button"
+            title="Unselected batch file"
+            disabled
+          >
+            &times;
+          </button>
+        </div>
       </div>
 
       <div class="form-grid">
@@ -131,6 +142,7 @@ const progressSpeed = document.querySelector('#progressSpeed');
 const progressEta = document.querySelector('#progressEta');
 const selectBatchBtn = document.querySelector('#selectBatchBtn');
 const batchFileName = document.querySelector('#batchFileName');
+const clearBatchBtn = document.querySelector('#clearBatchBtn');
 const batchDownloadBtn = document.querySelector('#batchDownloadBtn');
 const parallelSelect = document.querySelector('#parallel');
 
@@ -194,11 +206,19 @@ selectBatchBtn.addEventListener('click', async () => {
 
     selectedBatchFile = filePath;
     batchFileName.textContent = filePath;
+    clearBatchBtn.disabled = false;
     setStatus(`File batch dipilih: ${filePath}`, 'success');
   } catch (error) {
     console.error(error);
     setStatus(formatError(error), 'error');
   }
+});
+
+clearBatchBtn.addEventListener('click', () => {
+  selectedBatchFile = '';
+  batchFileName.textContent = 'No batch file selected';
+  clearBatchBtn.disabled = true;
+  setStatus('File batch dibatalkan.', 'idle');
 });
 
 batchDownloadBtn.addEventListener('click', async () => {

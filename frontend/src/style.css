@@ -229,6 +229,34 @@ button:disabled {
   color: #667085;
 }
 
+.batch-file {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: minmax(0, 1fr) 32px;
+  align-items: center;
+  min-width: 0;
+}
+
+.clear-batch-button {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background: #e5e7eb;
+  color: #334155;
+  font-size: 18px;
+  line-height: 1;
+  padding: 0;
+}
+
+.clear-batch-button:not(:disabled):hover {
+  background: #cbd5e1;
+}
+
+.clear-batch-button:disabled {
+  opacity: 0;
+  cursor: default;
+}
+
 .secondary-button {
   background: #475569;
 }
