@@ -156,6 +156,14 @@ func streamOutput(ctx context.Context, url string, reader io.Reader, collect fun
 			})
 		}
 	}
+	
+	if err := scanner.Err(); err != nil {
+		if ctx.Err() == nil {
+			return
+		}
+
+		collect("Gagal membaca output: " + err.Error())
+	}
 }
 
 func parseProgressLine(url string, line string) (ProgressEvent, bool) {
