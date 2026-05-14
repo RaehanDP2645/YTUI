@@ -1,5 +1,5 @@
 import './style.css';
-import { DownloadDefault } from '../wailsjs/go/main/App';
+import { DownloadBatch, DownloadDefault, SelectBatchFile } from '../wailsjs/go/main/App';
 import { EventsOn } from '../wailsjs/runtime/runtime';
 
 document.querySelector('#app').innerHTML = `
@@ -16,6 +16,11 @@ document.querySelector('#app').innerHTML = `
       <div class="field">
         <label for="url">YouTube URL</label>
         <input id="url" type="url" placeholder="https://www.youtube.com/watch?v=..." />
+      </div>
+
+      <div class="batch-row">
+        <button id="selectBatchBtn" class="secondary-button">Select .txt Batch File</button>
+        <span id="batchFileName">No batch file selected</span>
       </div>
 
       <div class="form-grid">
@@ -54,6 +59,16 @@ document.querySelector('#app').innerHTML = `
             <option value="360">360p</option>
           </select>
         </div>
+
+        <div class="field">
+          <label for="parallel">Parallel Downloads</label>
+          <select id="parallel">
+            <option value="1">1</option>
+            <option value="2" selected>2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+          </select>
+        </div>
       </div>
 
       <details class="advanced">
@@ -77,6 +92,8 @@ document.querySelector('#app').innerHTML = `
       </details>
 
       <button id="downloadBtn">Download</button>
+
+      <button id="batchDownloadBtn" class="secondary-button">Download Batch</button>
 
       <section class="progress-card">
         <div class="progress-top">
@@ -112,6 +129,12 @@ const progressPercent = document.querySelector('#progressPercent');
 const progressFill = document.querySelector('#progressFill');
 const progressSpeed = document.querySelector('#progressSpeed');
 const progressEta = document.querySelector('#progressEta');
+const selectBatchBtn = document.querySelector('#selectBatchBtn');
+const batchFileName = document.querySelector('#batchFileName');
+const batchDownloadBtn = document.querySelector('#batchDownloadBtn');
+const parallelSelect = document.querySelector('#parallel');
+
+let selectedBatchFile = '';
 
 EventsOn('download:progress', (event) => {
   updateProgress(event);
@@ -154,6 +177,57 @@ downloadBtn.addEventListener('click', async () => {
   } catch (error) {
     setStatus(formatError(error), 'error');
   } finally {
+    downloadBtn.disabled = false;
+  }
+});
+
+selectBatchBtn.addEventListener('click', async () => {
+  try {
+    const filePath = await SelectBatchFile();
+
+    console.log('Selected batch file:', filePath);
+
+    if (!filePath) {
+      setStatus('Tidak ada file yang dipilih.', 'error');
+      return;
+    }
+
+    selectedBatchFile = filePath;
+    batchFileName.textContent = filePath;
+    setStatus(`File batch dipilih: ${filePath}`, 'success');
+  } catch (error) {
+    console.error(error);
+    setStatus(formatError(error), 'error');
+  }
+});
+
+batchDownloadBtn.addEventListener('click', async () => {
+  if (!selectedBatchFile) {
+    setStatus('Pilih file .txt dulu!!', 'error');
+    return;
+  }
+
+  batchDownloadBtn.disabled = true;
+  downloadBtn.disabled = true;
+
+  try {
+    const result = await DownloadBatch({
+      filePath: selectedBatchFile,
+      type: typeSelect.value,
+      quality: qualitySelect.value,
+      outputDir: outputDirInput.value.trim(),
+      parallel: Number(parallelSelect.value),
+      skipErrors: true,
+    });
+
+    setStatus(
+      `${result.message}. Total: ${result.total}, selesai: ${result.completed}, gagal: ${result.failed}`,
+      'success'
+    );
+  } catch (error) {
+    setStatus(formatError(error), 'error');
+  } finally {
+    batchDownloadBtn.disabled = false;
     downloadBtn.disabled = false;
   }
 });

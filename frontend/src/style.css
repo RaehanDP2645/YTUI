@@ -212,3 +212,33 @@ button:disabled {
     gap: 0;
   }
 }
+
+.batch-row {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.batch-row span {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 13px;
+  color: #667085;
+}
+
+.secondary-button {
+  background: #475569;
+}
+
+.secondary-button:not(:disabled):hover {
+  background: #334155;
+}
+
+@media (max-width: 640px) {
+  .batch-row {
+    grid-template-columns: 1fr;
+  }
+}

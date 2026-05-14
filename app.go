@@ -1,10 +1,10 @@
 package main
 
 import (
+	"YTUI/internal/downloader"
 	"context"
 	"fmt"
-
-	"YTUI/internal/downloader"
+	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
 // App struct
@@ -30,4 +30,20 @@ func (a *App) Greet(name string) string {
 
 func (a *App) DownloadDefault(req downloader.DownloadRequest) (downloader.DownloadResult, error) {
 	return downloader.DownloadDefault(a.ctx, req)
+}
+
+func (a *App) SelectBatchFile() (string, error) {
+	return runtime.OpenFileDialog(a.ctx, runtime.OpenDialogOptions{
+		Title: "Pilih file batch .txt",
+		Filters: []runtime.FileFilter{
+			{
+				DisplayName: "Text Files (*.txt)",
+				Pattern:     "*.txt",
+			},
+		},
+	})
+}
+
+func (a *App) DownloadBatch(req downloader.BatchDownloadRequest) (downloader.BatchDownloadResult, error) {
+	return downloader.DownloadBatch(a.ctx, req)
 }
