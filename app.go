@@ -9,7 +9,8 @@ import (
 
 // App struct
 type App struct {
-	ctx context.Context
+	ctx    context.Context
+	cancel context.CancelFunc
 }
 
 // NewApp creates a new App application struct
@@ -29,7 +30,23 @@ func (a *App) Greet(name string) string {
 }
 
 func (a *App) DownloadDefault(req downloader.DownloadRequest) (downloader.DownloadResult, error) {
-	return downloader.DownloadDefault(a.ctx, req)
+	downloadCtx, cancel := context.WithCancel(a.ctx)
+	a.cancel = cancel
+
+	defer func() {
+		a.cancel = nil
+	}()
+
+	return downloader.DownloadDefault(downloadCtx, req)
+}
+
+func (a *App) CancelDownload() string {
+	if a.cancel == nil {
+		return "Tidak ada download aktif"
+	}
+
+	a.cancel()
+	return "Download dibatalkan"
 }
 
 func (a *App) SelectBatchFile() (string, error) {

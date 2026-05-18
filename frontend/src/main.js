@@ -1,5 +1,5 @@
 import './style.css';
-import { DownloadBatch, DownloadDefault, SelectBatchFile } from '../wailsjs/go/main/App';
+import { CancelDownload, DownloadBatch, DownloadDefault, SelectBatchFile } from '../wailsjs/go/main/App';
 import { EventsOn } from '../wailsjs/runtime/runtime';
 
 document.querySelector('#app').innerHTML = `
@@ -13,117 +13,125 @@ document.querySelector('#app').innerHTML = `
         <span class="badge">Default Mode</span>
       </div>
 
-      <div class="field">
-        <label for="url">YouTube URL</label>
-        <input id="url" type="url" placeholder="https://www.youtube.com/watch?v=..." />
-      </div>
-
-      <div class="batch-row">
-        <button id="selectBatchBtn" class="secondary-button">Select .txt Batch File</button>
-        
-        <div class="batch-file">
-          <span id="batchFileName">No batch file selected</span>
-          <button
-            id="clearBatchBtn"
-            class="clear-batch-button"
-            title="Unselected batch file"
-            disabled
-          >
-            &times;
-          </button>
-        </div>
-      </div>
-
-      <div class="form-grid">
-        <div class="field">
-          <label for="type">Type</label>
-          <select id="type">
-            <option value="video">Video</option>
-            <option value="music">Music</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label for="mode">Mode</label>
-          <select id="mode">
-            <option value="default">Default</option>
-            <option value="custom">Custom</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label for="format">Format</label>
-          <select id="format">
-            <option value="mp4">MP4</option>
-            <option value="mkv">MKV</option>
-            <option value="webm">WEBM</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label for="quality">Quality</label>
-          <select id="quality">
-            <option value="best">Best</option>
-            <option value="1080">1080p</option>
-            <option value="720">720p</option>
-            <option value="480">480p</option>
-            <option value="360">360p</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label for="parallel">Parallel Downloads</label>
-          <select id="parallel">
-            <option value="1">1</option>
-            <option value="2" selected>2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-          </select>
-        </div>
-      </div>
-
-      <details class="advanced">
-        <summary>Advanced Options</summary>
-
-        <div class="advanced-grid">
+      <div class="workspace">
+        <section class="controls-column">
           <div class="field">
-            <label for="outputDir">Output Folder</label>
-            <input id="outputDir" type="text" placeholder="Kosongkan untuk Downloads/YTUI" />
+            <label for="url">YouTube URL</label>
+            <input id="url" type="url" placeholder="https://www.youtube.com/watch?v=..." />
           </div>
 
-          <div class="field">
-            <label for="speedMode">Speed Mode</label>
-            <select id="speedMode">
-              <option value="normal">Normal</option>
-              <option value="fast">Fast</option>
-              <option value="very-fast">Very Fast</option>
-            </select>
+          <div class="batch-row">
+            <button id="selectBatchBtn" class="secondary-button">Select .txt Batch File</button>
+            
+            <div class="batch-file">
+              <span id="batchFileName">No batch file selected</span>
+              <button
+                id="clearBatchBtn"
+                class="clear-batch-button"
+                title="Unselected batch file"
+                disabled
+              >
+                &times;
+              </button>
+            </div>
           </div>
-        </div>
-      </details>
 
-      <button id="downloadBtn">Download</button>
+          <div class="form-grid">
+            <div class="field">
+              <label for="type">Type</label>
+              <select id="type">
+                <option value="video">Video</option>
+                <option value="music">Music</option>
+              </select>
+            </div>
 
-      <button id="batchDownloadBtn" class="secondary-button">Download Batch</button>
+            <div class="field">
+              <label for="mode">Mode</label>
+              <select id="mode">
+                <option value="default">Default</option>
+                <option value="custom">Custom</option>
+              </select>
+            </div>
 
-      <section class="progress-card">
-        <div class="progress-top">
-          <strong id="progressStatus">Ready</strong>
-          <span id="progressPercent">0%</span>
-        </div>
+            <div class="field">
+              <label for="format">Format</label>
+              <select id="format">
+                <option value="mp4">MP4</option>
+                <option value="mkv">MKV</option>
+                <option value="webm">WEBM</option>
+              </select>
+            </div>
 
-        <div class="progress-track">
-          <div id="progressFill" class="progress-fill"></div>
-        </div>
+            <div class="field">
+              <label for="quality">Quality</label>
+              <select id="quality">
+                <option value="1080">1080p (Best)</option>
+                <option value="720">720p (Good)</option>
+                <option value="480">480p (Not Bad)</option>
+                <option value="360">360p (Small)</option>
+              </select>
+            </div>
 
-        <div class="progress-meta">
-          <span id="progressSpeed">Speed: -</span>
-          <span id="progressEta">ETA: -</span>
-        </div>
+            <div class="field">
+              <label for="parallel">Parallel Downloads</label>
+              <select id="parallel">
+                <option value="1">1</option>
+                <option value="2" selected>2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+              </select>
+            </div>
+          </div>
 
-        <div id="status" class="status idle">Ready</div>
-        <div id="downloadList" class="download-list"></div>
-      </section>
+          <details class="advanced">
+            <summary>Advanced Options</summary>
+
+            <div class="advanced-grid">
+              <div class="field">
+                <label for="outputDir">Output Folder</label>
+                <input id="outputDir" type="text" placeholder="Kosongkan untuk Downloads/YTUI" />
+              </div>
+
+              <div class="field">
+                <label for="speedMode">Speed Mode</label>
+                <select id="speedMode">
+                  <option value="normal">Normal</option>
+                  <option value="fast">Fast</option>
+                  <option value="very-fast">Very Fast</option>
+                </select>
+              </div>
+            </div>
+          </details>
+
+          <div class="action-row">
+            <button id="downloadBtn">Download</button>
+            <button id="batchDownloadBtn" class="secondary-button">Download Batch</button>
+            <button id="cancelDownloadBtn" class="danger-button" disabled>Cancel Download</button>
+          </div>
+      
+        </section>
+      
+        <section class="progress-column">
+          <section class="progress-card">
+            <div class="progress-top">
+              <strong id="progressStatus">Ready</strong>
+              <span id="progressPercent">0%</span>
+            </div>
+
+            <div class="progress-track">
+              <div id="progressFill" class="progress-fill"></div>
+            </div>
+
+            <div class="progress-meta">
+              <span id="progressSpeed">Speed: -</span>
+              <span id="progressEta">ETA: -</span>
+            </div>
+
+            <div id="status" class="status idle">Ready</div>
+            <div id="downloadList" class="download-list"></div>
+          </section>
+        </section>
+      </div>
     </section>
   </main>
 `;
@@ -148,6 +156,7 @@ const batchFileName = document.querySelector('#batchFileName');
 const clearBatchBtn = document.querySelector('#clearBatchBtn');
 const batchDownloadBtn = document.querySelector('#batchDownloadBtn');
 const parallelSelect = document.querySelector('#parallel');
+const cancelDownloadBtn =document.querySelector('#cancelDownloadBtn');
 
 let selectedBatchFile = '';
 
@@ -176,6 +185,7 @@ downloadBtn.addEventListener('click', async () => {
   renderDownloadList();
 
   downloadBtn.disabled = true;
+  cancelDownloadBtn.disabled = false;
   updateProgress({
     status: 'queued',
     percent: 0,
@@ -194,9 +204,27 @@ downloadBtn.addEventListener('click', async () => {
 
     setStatus(`${result.message}. Folder: ${result.outputDir}`, 'success');
   } catch (error) {
-    setStatus(formatError(error), 'error');
+    const message = formatError(error).toLowerCase();
+
+    if (message.includes('dibatalkan') || message.includes('canceled')) {
+      setStatus('Download dibatalkan.', 'error');
+    } else {
+      setStatus('Download gagal', 'error');
+    }
   } finally {
     downloadBtn.disabled = false;
+    cancelDownloadBtn.disabled = true;
+  }
+});
+
+cancelDownloadBtn.addEventListener('click', async () => {
+  cancelDownloadBtn.disabled = true;
+  setStatus('Membatalkan download...', 'loading');
+
+  try {
+    await CancelDownload();
+  } catch (error) {
+    setStatus(formatError(error), 'error');
   }
 });
 
@@ -273,11 +301,10 @@ function syncFormatOptions() {
     `;
 
     qualitySelect.innerHTML = `
-      <option value="best">Best</option>
-      <option value="320">320k</option>
-      <option value="256">256k</option>
-      <option value="192">192k</option>
-      <option value="128">128k</option>
+      <option value="320">320k (Best)</option>
+      <option value="256">256k (Good)</option>
+      <option value="192">192k (Not Bad)</option>
+      <option value="128">128k (Small)</option>
     `;
 
     return;
@@ -290,11 +317,10 @@ function syncFormatOptions() {
   `;
 
   qualitySelect.innerHTML = `
-    <option value="best">Best</option>
-    <option value="1080">1080p</option>
-    <option value="720">720p</option>
-    <option value="480">480p</option>
-    <option value="360">360p</option>
+    <option value="1080">1080p (Best)</option>
+    <option value="720">720p (Good)</option>
+    <option value="480">480p (Not Bad)</option>
+    <option value="360">360p (Small)</option>
   `;
 }
 
@@ -320,6 +346,8 @@ function updateProgress(event) {
     setStatus('Download selesai.', 'success');
   } else if (event.status === 'failed') {
     setStatus('Download gagal.', 'error');
+  } else if (event.status === 'canceled') {
+    setStatus('Download dibatalkan.', 'error');
   } else if (event.status === 'downloading') {
     setStatus('Downloading...', 'loading');
   }
@@ -365,10 +393,10 @@ function renderDownloadList() {
       const percent = Math.max(0, Math.min(100, Number(item.percent || 0)));
 
       return `
-        <article class="download-item>
+        <article class="download-item">
           <div class="download-item-top">
             <strong title="${escapeHtml(item.url)}">${escapeHtml(item.url)}</strong>
-            <span class="download-status ${escapeHtml(item.status)}">${escapeHtml(items.status)}</span>
+            <span class="download-status ${escapeHtml(item.status)}">${escapeHtml(item.status)}</span>
           </div>
 
           <div class="download-item-progress">
@@ -377,7 +405,7 @@ function renderDownloadList() {
 
           <div class="download-item-meta">
             <span>${percent.toFixed(1)}%</span>
-            <span>Speed: ${escapeHtml(items.speed || '-')}</span>
+            <span>Speed: ${escapeHtml(item.speed || '-')}</span>
             <span>ETA: ${escapeHtml(item.eta || '-')}</span>
           </div>
           </article>

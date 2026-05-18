@@ -18,18 +18,14 @@ body {
 
 .shell {
   min-height: 100%;
-  display: grid;
-  place-items: center;
-  padding: 24px;
+  padding: 0;
 }
 
 .panel {
-  width: min(760px, 100%);
-  background: #ffffff;
-  border: 1px solid #d8dee4;
-  border-radius: 8px;
-  padding: 24px;
-  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+  width: min(1180px, 100%);
+  min-height: calc(100vh - 36px);
+  background: #f4f6f8;
+  padding: 20px 20px 20px 70px;
 }
 
 .header {
@@ -38,6 +34,18 @@ body {
   gap: 16px;
   align-items: flex-start;
   margin-bottom: 22px;
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(460px, 0.85fr) minmax(520px, 1.15fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.controls-column,
+.progress-column {
+  min-width: 0;
 }
 
 .header h1 {
@@ -109,7 +117,7 @@ button {
 
 button:disabled {
   opacity: 0.65;
-  cursor: wait;
+  cursor: not-allowed;
 }
 
 .advanced {
@@ -128,7 +136,7 @@ button:disabled {
 }
 
 .progress-card {
-  margin-top: 18px;
+  margin-top: 0;
   border: 1px solid #d8dee4;
   border-radius: 8px;
   padding: 14px;
@@ -193,9 +201,9 @@ button:disabled {
   color: #991b1b;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 980px) {
   .shell {
-    padding: 14px;
+    padding: 0;
   }
 
   .panel {
@@ -210,6 +218,14 @@ button:disabled {
   .advanced-grid {
     grid-template-columns: 1fr;
     gap: 0;
+  }
+
+  .workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .progress-card {
+    margin-top: 18px;
   }
 }
 
@@ -271,14 +287,13 @@ button:disabled {
   }
 }
 
-#batchDownloadBtn {
-  margin-top: 5px;
-}
-
 .download-list {
   display: grid;
   gap: 10px;
   margin-top: 14px;
+  max-height: 360px;
+  overflow: auto;
+  padding-right: 4px;
 }
 
 .download-item {
@@ -324,7 +339,7 @@ button:disabled {
   color: #475569;
 }
 
-.download-item.progress {
+.download-item-progress {
   height: 8px;
   overflow: hidden;
   border-radius: 999px;
@@ -332,7 +347,7 @@ button:disabled {
   margin-top: 10px;
 }
 
-.download-item.progress div {
+.download-item-progress div {
   height: 100%;
   border-radius: inherit;
   background: #1463ff;
@@ -346,4 +361,22 @@ button:disabled {
   margin-top: 8px;
   color: #667085;
   font-size: 12px;
+}
+
+.danger-button {
+  background: #dc2626;
+}
+
+.danger-button:not(:disabled):hover {
+  background: #b91c1c;
+}
+
+.action-row {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.action-row button {
+  min-width: 0;
 }

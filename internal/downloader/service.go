@@ -108,9 +108,15 @@ func DownloadDefault(ctx context.Context, req DownloadRequest) (DownloadResult, 
 	wg.Wait()
 
 	if err := cmd.Wait(); err != nil {
-		outputMu.Lock()
-		outputText := strings.Join(outputLines, "\n")
-		outputMu.Unlock()
+		if errors.Is(ctx.Err(), context.Canceled) {
+			emitProgress(ctx, ProgressEvent{
+				URL:     req.URL,
+				Status:  "canceled",
+				Message: "Download dibatalkan",
+			})
+
+			return DownloadResult{}, errors.New("download dibatalkan")
+		}
 
 		emitProgress(ctx, ProgressEvent{
 			URL:     req.URL,
@@ -118,7 +124,7 @@ func DownloadDefault(ctx context.Context, req DownloadRequest) (DownloadResult, 
 			Message: "Download gagal",
 		})
 
-		return DownloadResult{}, fmt.Errorf("yt-dlp gagal: %w\n%s", err, outputText)
+		return DownloadResult{}, errors.New("download gagal")
 	}
 
 	emitProgress(ctx, ProgressEvent{
@@ -158,7 +164,7 @@ func streamOutput(ctx context.Context, url string, reader io.Reader, collect fun
 	}
 	
 	if err := scanner.Err(); err != nil {
-		if ctx.Err() == nil {
+		if ctx.Err() != nil {
 			return
 		}
 
