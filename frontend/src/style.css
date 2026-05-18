@@ -274,3 +274,76 @@ button:disabled {
 #batchDownloadBtn {
   margin-top: 5px;
 }
+
+.download-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.download-item {
+  border: 1px solid #d8dee4;
+  border-radius: 8px;
+  padding: 12px;
+  background: #fbfcfe;
+}
+
+.download-item-top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.download-status {
+  border-radius: 999px;
+  padding: 4px 8px;
+  background: #e5e7eb;
+  color: #334155;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.download-status.completed {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.download-status.failed {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.download-status.downloading {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.download-status.queued {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.download-item.progress {
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e5e7eb;
+  margin-top: 10px;
+}
+
+.download-item.progress div {
+  height: 100%;
+  border-radius: inherit;
+  background: #1463ff;
+  transition: width 160ms ease;
+}
+
+.download-item-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+  color: #667085;
+  font-size: 12px;
+}

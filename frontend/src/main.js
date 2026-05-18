@@ -122,6 +122,7 @@ document.querySelector('#app').innerHTML = `
         </div>
 
         <div id="status" class="status idle">Ready</div>
+        <div id="downloadList" class="download-list"></div>
       </section>
     </section>
   </main>
@@ -140,6 +141,8 @@ const progressPercent = document.querySelector('#progressPercent');
 const progressFill = document.querySelector('#progressFill');
 const progressSpeed = document.querySelector('#progressSpeed');
 const progressEta = document.querySelector('#progressEta');
+const downloadList = document.querySelector('#downloadList');
+const downloadItems = new Map();
 const selectBatchBtn = document.querySelector('#selectBatchBtn');
 const batchFileName = document.querySelector('#batchFileName');
 const clearBatchBtn = document.querySelector('#clearBatchBtn');
@@ -150,6 +153,7 @@ let selectedBatchFile = '';
 
 EventsOn('download:progress', (event) => {
   updateProgress(event);
+  updateDownloadList(event);
 });
 
 typeSelect.addEventListener('change', syncFormatOptions);
@@ -167,6 +171,9 @@ downloadBtn.addEventListener('click', async () => {
     setStatus('Custom mode belum aktif. Kita aktifkan di tahap berikutnya.', 'error');
     return;
   }
+
+  downloadItems.clear();
+  renderDownloadList();
 
   downloadBtn.disabled = true;
   updateProgress({
@@ -226,6 +233,9 @@ batchDownloadBtn.addEventListener('click', async () => {
     setStatus('Pilih file .txt dulu!!', 'error');
     return;
   }
+
+  downloadItems.clear();
+  renderDownloadList();
 
   batchDownloadBtn.disabled = true;
   downloadBtn.disabled = true;
@@ -313,6 +323,76 @@ function updateProgress(event) {
   } else if (event.status === 'downloading') {
     setStatus('Downloading...', 'loading');
   }
+}
+
+function updateDownloadList(event) {
+  if (!event.url) {
+    return;
+  }
+
+  const current = downloadItems.get(event.url) || {
+    url: event.url,
+    status: 'queued',
+    percent: 0,
+    speed: '-',
+    eta: '-',
+    message: 'Queued',
+  };
+
+  const next = {
+    ...current,
+    status: event.status || current.status,
+    percent: Number(event.percent ?? current.percent ?? 0),
+    speed: event.speed || current.speed || '-',
+    eta: event.eta || current.eta || '-',
+    message: event.message || current.message || event.status || 'Working',
+  };
+
+  downloadItems.set(event.url, next);
+  renderDownloadList();
+}
+
+function renderDownloadList() {
+  const items = Array.from(downloadItems.values());
+
+  if (items.length === 0) {
+    downloadList.innerHTML = '';
+    return;
+  }
+
+  downloadList.innerHTML = items
+    .map((item) => {
+      const percent = Math.max(0, Math.min(100, Number(item.percent || 0)));
+
+      return `
+        <article class="download-item>
+          <div class="download-item-top">
+            <strong title="${escapeHtml(item.url)}">${escapeHtml(item.url)}</strong>
+            <span class="download-status ${escapeHtml(item.status)}">${escapeHtml(items.status)}</span>
+          </div>
+
+          <div class="download-item-progress">
+            <div style="width: ${percent}%"></div>
+          </div>
+
+          <div class="download-item-meta">
+            <span>${percent.toFixed(1)}%</span>
+            <span>Speed: ${escapeHtml(items.speed || '-')}</span>
+            <span>ETA: ${escapeHtml(item.eta || '-')}</span>
+          </div>
+          </article>
+      `;
+    })
+    .join('');
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll('&','&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#039;');
 }
 
 function setStatus(message, type) {
