@@ -16,6 +16,7 @@ import (
 
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 
+	"YTUI/internal/logger"
 	"YTUI/internal/ytdlp"
 )
 
@@ -55,6 +56,8 @@ func DownloadDefault(ctx context.Context, req DownloadRequest) (DownloadResult, 
 	if err != nil {
 		return DownloadResult{}, err
 	}
+
+	logger.L.Runtime("Download dimulai: %s -> %s", req.URL, outputDir)
 
 	args, err := ytdlp.BuildArgs(ytdlp.Options{
 		URL:        req.URL,
@@ -114,6 +117,7 @@ func DownloadDefault(ctx context.Context, req DownloadRequest) (DownloadResult, 
 				Status:  "canceled",
 				Message: "Download dibatalkan",
 			})
+			logger.L.Error("Download dibatalkan: %s", req.URL)
 
 			return DownloadResult{}, errors.New("download dibatalkan")
 		}
@@ -123,6 +127,7 @@ func DownloadDefault(ctx context.Context, req DownloadRequest) (DownloadResult, 
 			Status:  "failed",
 			Message: "Download gagal",
 		})
+		logger.L.Error("Download gagal: %s - err: %v", req.URL, err)
 
 		return DownloadResult{}, errors.New("download gagal")
 	}
@@ -133,6 +138,7 @@ func DownloadDefault(ctx context.Context, req DownloadRequest) (DownloadResult, 
 		Percent: 100,
 		Message: "Download selesai",
 	})
+	logger.L.Runtime("Download selesai: %s", req.URL)
 
 	return DownloadResult{
 		Message:   "Download selesai",
@@ -162,7 +168,7 @@ func streamOutput(ctx context.Context, url string, reader io.Reader, collect fun
 			})
 		}
 	}
-	
+
 	if err := scanner.Err(); err != nil {
 		if ctx.Err() != nil {
 			return

@@ -1,0 +1,23 @@
+[2026-09-07 14:26:03] [RUNTIME] App YTUI dimulai
+[2026-09-07 14:26:08] [RUNTIME] App YTUI dimulai
+[2026-09-07 14:26:42] [RUNTIME] App YTUI dimulai
+[2026-09-07 14:27:07] [RUNTIME] Download dimulai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=yzmlwI-iNObeGTS0 -> C:\Users\Administrator\Downloads\YTUI
+[2026-09-07 16:33:50] [RUNTIME] App YTUI dimulai
+[2026-09-07 16:33:54] [RUNTIME] App YTUI dimulai
+[2026-09-07 16:33:57] [RUNTIME] App YTUI dimulai
+[2026-09-07 16:34:00] [RUNTIME] App YTUI dimulai
+[2026-09-07 16:34:04] [RUNTIME] App YTUI dimulai
+[2026-09-07 16:34:07] [RUNTIME] App YTUI dimulai
+[2026-09-07 16:40:00] [RUNTIME] App YTUI dimulai
+[2026-09-07 16:40:04] [RUNTIME] App YTUI dimulai
+[2026-09-07 16:41:38] [RUNTIME] App YTUI dimulai
+[2026-09-07 16:41:42] [RUNTIME] App YTUI dimulai
+[2026-09-07 16:41:59] [RUNTIME] App YTUI dimulai
+[2026-09-07 16:42:02] [RUNTIME] App YTUI dimulai
+[2026-09-07 16:42:24] [RUNTIME] App YTUI dimulai
+[2026-09-07 16:42:27] [RUNTIME] App YTUI dimulai
+[2026-09-07 16:42:41] [RUNTIME] App YTUI dimulai
+[2026-09-07 16:42:45] [RUNTIME] App YTUI dimulai
+[2026-09-07 16:42:49] [RUNTIME] App YTUI dimulai
+[2026-09-07 16:42:53] [RUNTIME] App YTUI dimulai
+[2026-09-07 16:42:58] [RUNTIME] App YTUI dimulai

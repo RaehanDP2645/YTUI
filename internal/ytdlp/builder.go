@@ -1,10 +1,10 @@
 package ytdlp
 
 import (
+	"YTUI/internal/logger"
 	"errors"
 	"path/filepath"
 	"strings"
-
 	// "golang.org/x/text/cases"
 )
 
@@ -12,14 +12,20 @@ func BuildArgs(opts Options) ([]string, error) {
 	opts.URL = strings.TrimSpace(opts.URL)
 
 	if opts.URL == "" {
+		logger.L.Error("BuildArgs: URL tidak boleh kosong")
+
 		return nil, errors.New("URL tidak boleh kosong")
 	}
 
 	if opts.OutputDir == "" {
+		logger.L.Error("BuildArgs: output folder tidak boleh kosong")
+
 		return nil, errors.New("output folder tidak boleh kosong")
 	}
 
 	if opts.FFmpegPath == "" {
+		logger.L.Error("BuildArgs: path ffmpeg tidak boleh kosong")
+
 		return nil, errors.New("path ffmpeg tidak boleh kosong")
 	}
 
@@ -32,6 +38,8 @@ func BuildArgs(opts Options) ([]string, error) {
 	}
 
 	if opts.Mode != ModeDefault {
+		logger.L.Error("BuildArgs: custom mode belum tersedia")
+
 		return nil, errors.New("custom mode belum tersedia di tahap ini")
 	}
 
@@ -91,30 +99,30 @@ func buildQualitySuffix(kind DownloadKind, quality string) string {
 
 	if kind == KindMusic {
 		switch quality {
-			case "320", "320k":
-				return "320K"
-			case "256", "256k":
-				return "256K"
-			case "192", "192k":
-				return "192K"
-			case "128", "128k":
-				return "128K"
-			default:
-				return "best"
+		case "320", "320k":
+			return "320K"
+		case "256", "256k":
+			return "256K"
+		case "192", "192k":
+			return "192K"
+		case "128", "128k":
+			return "128K"
+		default:
+			return "best"
 		}
 	}
 
 	switch quality {
-		case "1080", "1080p":
-			return "1080p"
-		case "720", "720p":
-			return "720p"
-		case "480", "480p":
-			return "480p"
-		case "360", "360p":
-			return "360p"
-		default:
-			return "best"
+	case "1080", "1080p":
+		return "1080p"
+	case "720", "720p":
+		return "720p"
+	case "480", "480p":
+		return "480p"
+	case "360", "360p":
+		return "360p"
+	default:
+		return "best"
 	}
 }
 

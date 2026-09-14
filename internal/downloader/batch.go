@@ -7,6 +7,8 @@ import (
 	"os"
 	"strings"
 	"sync"
+
+	"YTUI/internal/logger"
 )
 
 type batchJob struct {
@@ -36,6 +38,8 @@ func DownloadBatch(ctx context.Context, req BatchDownloadRequest) (BatchDownload
 	if parallel > 5 {
 		parallel = 5
 	}
+
+	logger.L.Runtime("Batch download dimulai: total=%d, parallel=%d", len(urls), parallel)
 
 	batchCtx, cancel := context.WithCancel(ctx)
 	defer cancel()
@@ -104,12 +108,15 @@ func DownloadBatch(ctx context.Context, req BatchDownloadRequest) (BatchDownload
 	for result := range results {
 		if result.Err != nil {
 			failed++
+			logger.L.Error("Batch item gagal: %s - err:%v", result.URL, result.Err)
 			continue
 		}
 
 		completed++
+		logger.L.Runtime("Batch item selesai: %s", result.URL)
 	}
 
+	logger.L.Runtime("Batch selesai: total=%d, sukses=%d, gagal=%d", len(urls), completed, failed)
 	return BatchDownloadResult{
 		Message:   "Batch download selesai",
 		Total:     len(urls),

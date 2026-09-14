@@ -2,8 +2,10 @@ package main
 
 import (
 	"YTUI/internal/downloader"
+	"YTUI/internal/logger"
 	"context"
 	"fmt"
+
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
@@ -41,6 +43,8 @@ func (a *App) DownloadDefault(req downloader.DownloadRequest) (downloader.Downlo
 }
 
 func (a *App) CancelDownload() string {
+	logger.L.Runtime("User membatalkan download")
+
 	if a.cancel == nil {
 		return "Tidak ada download aktif"
 	}
@@ -50,7 +54,7 @@ func (a *App) CancelDownload() string {
 }
 
 func (a *App) SelectBatchFile() (string, error) {
-	return runtime.OpenFileDialog(a.ctx, runtime.OpenDialogOptions{
+	filepath, err := runtime.OpenFileDialog(a.ctx, runtime.OpenDialogOptions{
 		Title: "Pilih file batch .txt",
 		Filters: []runtime.FileFilter{
 			{
@@ -59,8 +63,16 @@ func (a *App) SelectBatchFile() (string, error) {
 			},
 		},
 	})
+
+	if filepath != "" {
+		logger.L.Runtime("Batch file dipilih: %s", filepath)
+	}
+
+	return filepath, err
 }
 
 func (a *App) DownloadBatch(req downloader.BatchDownloadRequest) (downloader.BatchDownloadResult, error) {
+	logger.L.Runtime("Batch download dipanggil dari UI: %s", req.FilePath)
+
 	return downloader.DownloadBatch(a.ctx, req)
 }
