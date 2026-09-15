@@ -8,6 +8,7 @@ import (
 	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
 
 	"YTUI/internal/logger"
+	"YTUI/internal/singleinstance"
 	"YTUI/internal/tools"
 )
 
@@ -18,6 +19,12 @@ var assets embed.FS
 var binScripts embed.FS
 
 func main() {
+	if singleinstance.Acquire() {
+		singleinstance.ShowDialog()
+		return
+	}
+	defer singleinstance.Release()
+
 	// Create an instance of the app structure
 	app := NewApp()
 
