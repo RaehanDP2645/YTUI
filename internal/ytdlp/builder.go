@@ -57,6 +57,17 @@ func buildDefaultArgs(opts Options) []string {
 		"-o", outputTemplate,
 	}
 
+	if opts.DenoPath != "" {
+		baseArgs = append(baseArgs, "--js-runtimes", "deno:"+opts.DenoPath)
+	}
+
+	if opts.Aria2cPath != "" {
+		baseArgs = append(baseArgs,
+			"--external-downloader", opts.Aria2cPath,
+			"--external-downloader-args", "aria2c:-x 16 -k 1M",
+		)
+	}
+
 	switch opts.Kind {
 	case KindMusic:
 		args := append(baseArgs,

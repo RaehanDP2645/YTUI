@@ -4,3 +4,10 @@ frontend/dist/
 *.exe
 *.log
 .DS_Store
+new feature.txt
+YTD-UI Develop opencode-BigPickle.md
+debug.txt
+logs/*.txt
+*-bak.*
+new feature.txt
+batch.txt

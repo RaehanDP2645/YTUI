@@ -21,3 +21,187 @@
 [2026-09-07 16:42:49] [RUNTIME] App YTUI dimulai
 [2026-09-07 16:42:53] [RUNTIME] App YTUI dimulai
 [2026-09-07 16:42:58] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:11:56] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:12:00] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:12:38] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:13:55] [RUNTIME] Download dimulai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq -> C:\Users\Administrator\Downloads\YTUI
+[2026-09-14 11:21:30] [RUNTIME] Download dimulai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq -> C:\Users\Administrator\Downloads\YTUI
+[2026-09-14 11:22:40] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:22:45] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:22:48] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:23:00] [RUNTIME] Download dimulai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq -> C:\Users\Administrator\Downloads\YTUI
+[2026-09-14 11:29:48] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:29:51] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:29:55] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:29:56] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:30:09] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:30:13] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:30:23] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:30:26] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:30:30] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:30:32] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:31:57] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:32:02] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:32:07] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:32:08] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:32:12] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:32:16] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:32:59] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:33:03] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:33:04] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:33:47] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:34:00] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:34:04] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:34:09] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:34:14] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:34:18] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:34:22] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:34:27] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:34:35] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:34:39] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:34:43] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:34:47] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:34:53] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:34:57] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:35:02] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:35:06] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:35:10] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:35:14] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:35:24] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:35:27] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:35:32] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:35:33] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:35:44] [RUNTIME] Download dimulai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq -> C:\Users\Administrator\Downloads\YTUI
+[2026-09-14 11:35:48] [RUNTIME] Download dimulai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq -> C:\Users\Administrator\Downloads\YTUI
+[2026-09-14 11:38:16] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:38:21] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:38:25] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:38:28] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:38:34] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:38:38] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:38:42] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:38:43] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:40:55] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:41:00] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:41:04] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:41:08] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:41:21] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:41:24] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:41:29] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:41:30] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:42:08] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:42:11] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:42:17] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:42:24] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:42:33] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:42:36] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:44:20] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:44:27] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:44:39] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:44:43] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:44:57] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:45:01] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:45:15] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:45:19] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:45:23] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:45:27] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:45:32] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:45:36] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:45:40] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:45:44] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:46:06] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:46:10] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:46:16] [RUNTIME] App YTUI dimulai
+[2026-09-14 11:46:17] [RUNTIME] App YTUI dimulai
+[2026-09-14 13:18:38] [RUNTIME] yt-dlp path: bin\yt-dlp.exe
+[2026-09-14 13:18:38] [RUNTIME] ffmpeg path: bin\ffmpeg.exe
+[2026-09-14 13:18:38] [RUNTIME] Download dimulai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq -> C:\Users\Administrator\Downloads\YTUI
+[2026-09-14 13:19:21] [RUNTIME] yt-dlp path: bin\yt-dlp.exe
+[2026-09-14 13:19:21] [RUNTIME] ffmpeg path: bin\ffmpeg.exe
+[2026-09-14 13:19:21] [RUNTIME] Download dimulai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq -> C:\Users\Administrator\Downloads\YTUI
+[2026-09-14 13:19:25] [RUNTIME] yt-dlp path: bin\yt-dlp.exe
+[2026-09-14 13:19:25] [RUNTIME] ffmpeg path: bin\ffmpeg.exe
+[2026-09-14 13:19:25] [RUNTIME] Download dimulai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq -> C:\Users\Administrator\Downloads\YTUI
+[2026-09-14 13:22:12] [RUNTIME] App YTUI dimulai
+[2026-09-14 13:22:16] [RUNTIME] App YTUI dimulai
+[2026-09-14 13:22:18] [RUNTIME] App YTUI dimulai
+[2026-09-14 13:22:34] [RUNTIME] Batch file dipilih: C:\Users\Administrator\Documents\00 project mee\YTUI\batch.txt
+[2026-09-14 13:22:43] [RUNTIME] Batch download dipanggil dari UI: C:\Users\Administrator\Documents\00 project mee\YTUI\batch.txt
+[2026-09-14 13:22:43] [RUNTIME] Batch download dimulai: total=1, parallel=2
+[2026-09-14 13:22:43] [RUNTIME] yt-dlp path: bin\yt-dlp.exe
+[2026-09-14 13:22:43] [RUNTIME] ffmpeg path: bin\ffmpeg.exe
+[2026-09-14 13:22:43] [RUNTIME] Download dimulai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq -> C:\Users\Administrator\Downloads\YTUI
+[2026-09-14 13:22:43] [RUNTIME] Batch selesai: total=1, sukses=0, gagal=1
+[2026-09-14 13:25:27] [RUNTIME] App YTUI dimulai
+[2026-09-14 13:25:30] [RUNTIME] App YTUI dimulai
+[2026-09-14 13:25:34] [RUNTIME] App YTUI dimulai
+[2026-09-14 13:25:35] [RUNTIME] App YTUI dimulai
+[2026-09-14 13:26:44] [RUNTIME] App YTUI dimulai
+[2026-09-14 13:26:48] [RUNTIME] App YTUI dimulai
+[2026-09-14 13:26:51] [RUNTIME] App YTUI dimulai
+[2026-09-14 13:27:00] [RUNTIME] Batch file dipilih: C:\Users\Administrator\Documents\00 project mee\YTUI\batch.txt
+[2026-09-14 13:27:03] [RUNTIME] Batch download dipanggil dari UI: C:\Users\Administrator\Documents\00 project mee\YTUI\batch.txt
+[2026-09-14 13:27:03] [RUNTIME] Batch download dimulai: total=1, parallel=2
+[2026-09-14 13:27:03] [RUNTIME] yt-dlp path: bin\yt-dlp.exe
+[2026-09-14 13:27:03] [RUNTIME] ffmpeg path: bin\ffmpeg.exe
+[2026-09-14 13:27:03] [RUNTIME] Download dimulai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq -> C:\Users\Administrator\Downloads\YTUI
+[2026-09-14 13:27:03] [RUNTIME] Batch selesai: total=1, sukses=0, gagal=1
+[2026-09-14 13:28:18] [RUNTIME] App YTUI dimulai
+[2026-09-14 13:28:23] [RUNTIME] App YTUI dimulai
+[2026-09-14 13:35:09] [RUNTIME] App YTUI dimulai
+[2026-09-14 13:35:14] [RUNTIME] App YTUI dimulai
+[2026-09-14 13:35:15] [RUNTIME] App YTUI dimulai
+[2026-09-14 13:35:27] [RUNTIME] Batch file dipilih: C:\Users\Administrator\Documents\00 project mee\YTUI\batch.txt
+[2026-09-14 13:35:31] [RUNTIME] Batch download dipanggil dari UI: C:\Users\Administrator\Documents\00 project mee\YTUI\batch.txt
+[2026-09-14 13:35:31] [RUNTIME] Batch download dimulai: total=1, parallel=2
+[2026-09-14 13:35:31] [RUNTIME] yt-dlp path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\yt-dlp.exe
+[2026-09-14 13:35:31] [RUNTIME] ffmpeg path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\ffmpeg.exe
+[2026-09-14 13:35:31] [RUNTIME] Download dimulai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq -> C:\Users\Administrator\Downloads\YTUI
+[2026-09-14 13:35:50] [RUNTIME] Download selesai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq
+[2026-09-14 13:35:50] [RUNTIME] Batch item selesai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq
+[2026-09-14 13:35:50] [RUNTIME] Batch selesai: total=1, sukses=1, gagal=0
+[2026-09-14 13:41:50] [RUNTIME] App YTUI dimulai
+[2026-09-14 14:31:06] [RUNTIME] App YTUI dimulai
+[2026-09-14 14:31:06] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-14 14:31:22] [RUNTIME] App YTUI dimulai
+[2026-09-14 14:31:22] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-14 14:31:43] [RUNTIME] App YTUI dimulai
+[2026-09-14 14:31:43] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-14 14:32:39] [RUNTIME] yt-dlp path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\yt-dlp.exe
+[2026-09-14 14:32:39] [RUNTIME] ffmpeg path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\ffmpeg.exe
+[2026-09-14 14:32:39] [RUNTIME] aria2c path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\aria2c.exe
+[2026-09-14 14:32:39] [RUNTIME] deno path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\deno.exe
+[2026-09-14 14:32:39] [RUNTIME] Download dimulai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq -> C:\Users\Administrator\Downloads\YTUI
+[2026-09-14 14:32:49] [RUNTIME] User membatalkan download
+[2026-09-14 14:34:16] [RUNTIME] yt-dlp path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\yt-dlp.exe
+[2026-09-14 14:34:16] [RUNTIME] ffmpeg path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\ffmpeg.exe
+[2026-09-14 14:34:16] [RUNTIME] aria2c path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\aria2c.exe
+[2026-09-14 14:34:16] [RUNTIME] deno path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\deno.exe
+[2026-09-14 14:34:16] [RUNTIME] Download dimulai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq -> C:\Users\Administrator\Downloads\YTUI
+[2026-09-14 14:34:42] [RUNTIME] Download selesai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq
+[2026-09-14 14:35:06] [RUNTIME] Batch file dipilih: C:\Users\Administrator\Documents\00 project mee\YTUI\batch.txt
+[2026-09-14 14:35:08] [RUNTIME] Batch download dipanggil dari UI: C:\Users\Administrator\Documents\00 project mee\YTUI\batch.txt
+[2026-09-14 14:35:08] [RUNTIME] Batch download dimulai: total=1, parallel=2
+[2026-09-14 14:35:08] [RUNTIME] yt-dlp path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\yt-dlp.exe
+[2026-09-14 14:35:08] [RUNTIME] ffmpeg path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\ffmpeg.exe
+[2026-09-14 14:35:08] [RUNTIME] aria2c path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\aria2c.exe
+[2026-09-14 14:35:08] [RUNTIME] deno path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\deno.exe
+[2026-09-14 14:35:08] [RUNTIME] Download dimulai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq -> C:\Users\Administrator\Downloads\YTUI
+[2026-09-14 14:35:34] [RUNTIME] Download selesai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq
+[2026-09-14 14:35:34] [RUNTIME] Batch item selesai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq
+[2026-09-14 14:35:34] [RUNTIME] Batch selesai: total=1, sukses=1, gagal=0
+[2026-09-14 14:38:44] [RUNTIME] App YTUI dimulai
+[2026-09-14 14:38:44] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-14 14:45:24] [RUNTIME] App YTUI dimulai
+[2026-09-14 14:45:24] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-14 14:51:47] [RUNTIME] App YTUI dimulai
+[2026-09-14 14:51:47] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-14 15:40:49] [RUNTIME] App YTUI dimulai
+[2026-09-14 15:40:49] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-14 16:11:02] [RUNTIME] App YTUI dimulai
+[2026-09-14 16:11:02] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-14 16:11:39] [RUNTIME] App YTUI dimulai
+[2026-09-14 16:11:39] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-14 16:33:04] [RUNTIME] App YTUI dimulai
+[2026-09-14 16:33:04] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-15 08:44:59] [RUNTIME] App YTUI dimulai

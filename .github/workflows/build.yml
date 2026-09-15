@@ -1,0 +1,140 @@
+name: Build YTUI Installers
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  windows:
+    name: Windows (NSIS installer)
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.25"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Download Windows tools to bin/
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force "bin" | Out-Null
+          $ErrorActionPreference = "Stop"
+
+          curl.exe -L -o "bin\yt-dlp.exe" "https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.exe"
+
+          curl.exe -L -o "$env:TEMP\ffmpeg.zip" "https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-essentials.zip"
+          Expand-Archive "$env:TEMP\ffmpeg.zip" "$env:TEMP\ffmpeg" -Force
+          Copy-Item "$env:TEMP\ffmpeg\ffmpeg-*\bin\ffmpeg.exe" "bin\ffmpeg.exe"
+
+          curl.exe -L -o "$env:TEMP\aria2.zip" "https://github.com/aria2/aria2/releases/download/release-1.37.0/aria2-1.37.0-win-64bit-build1.zip"
+          Expand-Archive "$env:TEMP\aria2.zip" "$env:TEMP\aria2" -Force
+          Copy-Item "$env:TEMP\aria2\aria2-1.37.0-win-64bit-build1\aria2c.exe" "bin\aria2c.exe"
+
+          curl.exe -L -o "$env:TEMP\deno.zip" "https://github.com/denoland/deno/releases/latest/download/deno-x86_64-pc-windows-msvc.zip"
+          Expand-Archive "$env:TEMP\deno.zip" "$env:TEMP\deno" -Force
+          Copy-Item "$env:TEMP\deno\deno.exe" "bin\deno.exe"
+
+          Get-ChildItem bin | Select-Object Name, Length
+
+      - run: npm ci
+
+      - name: Install NSIS
+        run: choco install nsis -y --no-progress
+
+      - name: Install Wails CLI
+        run: go install github.com/wailsapp/wails/v2/cmd/wails@latest
+
+      - name: Build Windows installer
+        shell: pwsh
+        run: |
+          $env:Path += ";$HOME\go\bin"
+          wails build -platform windows/amd64 -clean -trimpath -nsis
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ytui-windows
+          path: build/bin/*.exe
+
+  linux:
+    name: Linux (deb + AppImage)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.25"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install Linux dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            libgtk-3-dev libwebkit2gtk-4.1-dev build-essential aria2 unzip
+
+      - name: Download Linux tools to bin/
+        run: |
+          set -eux
+          mkdir -p bin
+
+          curl -fL -o bin/yt-dlp "https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_linux"
+          chmod +x bin/yt-dlp
+
+          curl -fL -o /tmp/ffmpeg.tar.xz "https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz"
+          tar -xf /tmp/ffmpeg.tar.xz -C /tmp
+          cp /tmp/ffmpeg-*-static/ffmpeg bin/ffmpeg && chmod +x bin/ffmpeg
+
+          curl -fL -o /tmp/deno.zip "https://github.com/denoland/deno/releases/latest/download/deno-x86_64-unknown-linux-gnu.zip"
+          unzip -o /tmp/deno.zip -d bin && chmod +x bin/deno
+
+          # aria2c dipasang via apt di step deps; opsional ditaruh di bin juga
+          cp "$(command -v aria2c)" bin/aria2c || true
+
+          ls -la bin
+
+      - run: npm ci
+
+      - name: Install Wails CLI
+        run: go install github.com/wailsapp/wails/v2/cmd/wails@latest
+
+      - name: Build Linux deb + AppImage
+        shell: bash
+        run: |
+          export PATH="$PATH:$(go env GOPATH)/bin"
+          wails build -platform linux/amd64 -clean -trimpath -deb -appimage
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ytui-linux
+          path: |
+            build/bin/*
+
+  release:
+    name: Publish GitHub Release
+    needs: [windows, linux]
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" \
+            artifacts/ytui-windows/*.exe \
+            artifacts/ytui-linux/*.deb \
+            artifacts/ytui-linux/*.AppImage \
+            --title "$GITHUB_REF_NAME" --generate-notes

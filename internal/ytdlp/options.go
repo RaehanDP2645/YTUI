@@ -21,5 +21,6 @@ type Options struct {
 	Quality    string
 	OutputDir  string
 	FFmpegPath string
+	Aria2cPath string
+	DenoPath   string
 }
-

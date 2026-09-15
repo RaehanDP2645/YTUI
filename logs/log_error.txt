@@ -1,1 +1,7 @@
 [2026-09-07 14:27:15] [ERROR] Download gagal: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=yzmlwI-iNObeGTS0 - err: exit status 1
+[2026-09-14 11:14:01] [ERROR] Download gagal: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq - err: exit status 1
+[2026-09-14 11:21:36] [ERROR] Download gagal: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq - err: exit status 1
+[2026-09-14 11:23:05] [ERROR] Download gagal: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq - err: exit status 1
+[2026-09-14 13:22:43] [ERROR] Batch item gagal: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq - err:fork/exec bin\yt-dlp.exe: The system cannot find the path specified.
+[2026-09-14 13:27:03] [ERROR] Batch item gagal: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq - err:fork/exec bin\yt-dlp.exe: The system cannot find the path specified.
+[2026-09-14 14:33:07] [ERROR] Download dibatalkan: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq

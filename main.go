@@ -8,10 +8,14 @@ import (
 	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
 
 	"YTUI/internal/logger"
+	"YTUI/internal/tools"
 )
 
 //go:embed all:frontend/dist
 var assets embed.FS
+
+//go:embed all:bin
+var binScripts embed.FS
 
 func main() {
 	// Create an instance of the app structure
@@ -24,6 +28,14 @@ func main() {
 	} else {
 		defer logger.L.Close()
 		logger.L.Runtime("App YTUI dimulai")
+	}
+
+	if toolsDir, err := tools.Extract(binScripts); err != nil {
+		if logger.L != nil {
+			logger.L.Error("Gagal ekstrak tools: %v", err)
+		}
+	} else if toolsDir != "" {
+		logger.L.Runtime("Tools siap di: %s", toolsDir)
 	}
 	// Create application with options
 	err = wails.Run(&options.App{

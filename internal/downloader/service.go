@@ -17,6 +17,7 @@ import (
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 
 	"YTUI/internal/logger"
+	"YTUI/internal/tools"
 	"YTUI/internal/ytdlp"
 )
 
@@ -47,14 +48,34 @@ func DownloadDefault(ctx context.Context, req DownloadRequest) (DownloadResult, 
 		return DownloadResult{}, err
 	}
 
-	ytDlpPath, err := findBinary("yt-dlp", "yt-dlp.exe", `C:\ytui-pro\yt-dlp.exe`)
+	toolsDir, _ := tools.Dir()
+
+	ytDlpPath, err := findBinary(toolCandidates(toolsDir, "yt-dlp")...)
 	if err != nil {
 		return DownloadResult{}, err
 	}
+	logger.L.Runtime("yt-dlp path: %s", ytDlpPath)
 
-	ffmpegPath, err := findBinary("ffmpeg", "ffmpeg.exe", `C:\ytui-pro\ffmpeg.exe`)
+	ffmpegPath, err := findBinary(toolCandidates(toolsDir, "ffmpeg")...)
 	if err != nil {
 		return DownloadResult{}, err
+	}
+	logger.L.Runtime("ffmpeg path: %s", ffmpegPath)
+
+	aria2cPath := ""
+	if p, err := findBinary(toolCandidates(toolsDir, "aria2c")...); err == nil {
+		aria2cPath = p
+		logger.L.Runtime("aria2c path: %s", p)
+	} else {
+		logger.L.Runtime("aria2c tidak ditemukan, pakai downloader bawaan: %v", err)
+	}
+
+	denoPath := ""
+	if p, err := findBinary(toolCandidates(toolsDir, "deno")...); err == nil {
+		denoPath = p
+		logger.L.Runtime("deno path: %s", p)
+	} else {
+		logger.L.Runtime("deno tidak ditemukan, pakai node/yang ada: %v", err)
 	}
 
 	logger.L.Runtime("Download dimulai: %s -> %s", req.URL, outputDir)
@@ -66,6 +87,8 @@ func DownloadDefault(ctx context.Context, req DownloadRequest) (DownloadResult, 
 		Quality:    req.Quality,
 		OutputDir:  outputDir,
 		FFmpegPath: ffmpegPath,
+		Aria2cPath: aria2cPath,
+		DenoPath:   denoPath,
 	})
 	if err != nil {
 		return DownloadResult{}, err
@@ -79,6 +102,7 @@ func DownloadDefault(ctx context.Context, req DownloadRequest) (DownloadResult, 
 
 	cmd := exec.CommandContext(ctx, ytDlpPath, args...)
 	cmd.Dir = outputDir
+	hideWindow(cmd)
 
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
@@ -128,6 +152,15 @@ func DownloadDefault(ctx context.Context, req DownloadRequest) (DownloadResult, 
 			Message: "Download gagal",
 		})
 		logger.L.Error("Download gagal: %s - err: %v", req.URL, err)
+
+		outputMu.Lock()
+		if len(outputLines) > 0 {
+			logger.L.Error("yt-dlp output:")
+			for _, line := range outputLines {
+				logger.L.Error("  | %s", line)
+			}
+		}
+		outputMu.Unlock()
 
 		return DownloadResult{}, errors.New("download gagal")
 	}
@@ -213,13 +246,39 @@ func mapDownloadKind(downloadType DownloadType) ytdlp.DownloadKind {
 	}
 }
 
+func toolCandidates(toolsDir, exe string) []string {
+	var candidates []string
+
+	candidates = append(candidates,
+		filepath.Join("bin", exe),
+		filepath.Join("bin", exe+".exe"),
+	)
+
+	if toolsDir != "" {
+		candidates = append(candidates,
+			filepath.Join(toolsDir, exe),
+			filepath.Join(toolsDir, exe+".exe"),
+		)
+	}
+
+	candidates = append(candidates, exe, exe+".exe")
+
+	return candidates
+}
+
 func findBinary(names ...string) (string, error) {
 	for _, name := range names {
 		if path, err := exec.LookPath(name); err == nil {
+			if abs, err := filepath.Abs(path); err == nil {
+				return abs, nil
+			}
 			return path, nil
 		}
 
 		if _, err := os.Stat(name); err == nil {
+			if abs, err := filepath.Abs(name); err == nil {
+				return abs, nil
+			}
 			return name, nil
 		}
 	}
