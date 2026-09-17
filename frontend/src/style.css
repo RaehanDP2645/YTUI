@@ -380,3 +380,121 @@ button:disabled {
 .action-row button {
   min-width: 0;
 }
+
+.exists-row {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 12px;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.exists-row label {
+  font-size: 13px;
+}
+
+.exists-dialog {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+.exists-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+}
+
+.exists-box {
+  position: relative;
+  width: min(520px, 100%);
+  border: 1px solid #d8dee4;
+  border-radius: 10px;
+  padding: 20px;
+  background: #ffffff;
+  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.25);
+}
+
+.exists-box h2 {
+  margin: 0 0 10px;
+  font-size: 20px;
+}
+
+.exists-desc {
+  margin: 0 0 8px;
+  color: #475569;
+  font-size: 14px;
+}
+
+.exists-box code {
+  display: block;
+  overflow-wrap: break-word;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 10px 12px;
+  background: #f8fafc;
+  color: #17202a;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.exists-remember {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: 16px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.exists-remember input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  cursor: pointer;
+}
+
+.exists-actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.exists-actions button {
+  margin: 0;
+}
+
+.exists-btn-primary {
+  background: #1463ff;
+}
+
+.exists-btn-primary:not(:disabled):hover {
+  background: #1154d8;
+}
+
+.exists-btn-secondary {
+  background: #475569;
+}
+
+.exists-btn-secondary:not(:disabled):hover {
+  background: #334155;
+}
+
+.exists-btn-danger {
+  background: #dc2626;
+}
+
+.exists-btn-danger:not(:disabled):hover {
+  background: #b91c1c;
+}
+
+@media (max-width: 640px) {
+  .exists-row {
+    grid-template-columns: 1fr;
+  }
+}

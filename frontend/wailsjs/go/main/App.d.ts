@@ -8,6 +8,12 @@ export function DownloadBatch(arg1:downloader.BatchDownloadRequest):Promise<down
 
 export function DownloadDefault(arg1:downloader.DownloadRequest):Promise<downloader.DownloadResult>;
 
+export function GetFileExistsPolicy():Promise<string>;
+
 export function Greet(arg1:string):Promise<string>;
 
+export function ResolveFileExists(arg1:string,arg2:string,arg3:boolean):Promise<void>;
+
 export function SelectBatchFile():Promise<string>;
+
+export function SetFileExistsPolicy(arg1:string):Promise<void>;

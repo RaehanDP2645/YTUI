@@ -213,3 +213,64 @@
 [2026-09-15 11:47:34] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
 [2026-09-15 14:40:34] [RUNTIME] App YTUI dimulai
 [2026-09-15 14:40:34] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-17 14:55:39] [RUNTIME] App YTUI dimulai
+[2026-09-17 14:55:39] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-17 14:56:03] [RUNTIME] App YTUI dimulai
+[2026-09-17 14:56:03] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-17 14:56:23] [RUNTIME] App YTUI dimulai
+[2026-09-17 14:56:23] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-17 14:57:52] [RUNTIME] yt-dlp path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\yt-dlp.exe
+[2026-09-17 14:57:52] [RUNTIME] ffmpeg path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\ffmpeg.exe
+[2026-09-17 14:57:52] [RUNTIME] aria2c path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\aria2c.exe
+[2026-09-17 14:57:52] [RUNTIME] deno path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\deno.exe
+[2026-09-17 14:57:52] [RUNTIME] Download dimulai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq -> C:\Users\Administrator\Downloads\YTUI
+[2026-09-17 14:58:07] [RUNTIME] User membatalkan download
+[2026-09-17 14:58:55] [RUNTIME] yt-dlp path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\yt-dlp.exe
+[2026-09-17 14:58:55] [RUNTIME] ffmpeg path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\ffmpeg.exe
+[2026-09-17 14:58:55] [RUNTIME] aria2c path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\aria2c.exe
+[2026-09-17 14:58:55] [RUNTIME] deno path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\deno.exe
+[2026-09-17 14:58:55] [RUNTIME] Download dimulai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq -> C:\Users\Administrator\Downloads\YTUI
+[2026-09-17 14:59:00] [RUNTIME] Download selesai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq
+[2026-09-17 14:59:09] [RUNTIME] yt-dlp path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\yt-dlp.exe
+[2026-09-17 14:59:09] [RUNTIME] ffmpeg path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\ffmpeg.exe
+[2026-09-17 14:59:09] [RUNTIME] aria2c path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\aria2c.exe
+[2026-09-17 14:59:09] [RUNTIME] deno path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\deno.exe
+[2026-09-17 14:59:09] [RUNTIME] Download dimulai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq -> C:\Users\Administrator\Downloads\YTUI
+[2026-09-17 14:59:46] [RUNTIME] yt-dlp path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\yt-dlp.exe
+[2026-09-17 14:59:46] [RUNTIME] ffmpeg path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\ffmpeg.exe
+[2026-09-17 14:59:46] [RUNTIME] aria2c path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\aria2c.exe
+[2026-09-17 14:59:46] [RUNTIME] deno path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\deno.exe
+[2026-09-17 14:59:46] [RUNTIME] Download dimulai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq -> C:\Users\Administrator\Downloads\YTUI
+[2026-09-17 15:00:11] [RUNTIME] Download selesai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq
+[2026-09-17 15:24:07] [RUNTIME] yt-dlp path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\yt-dlp.exe
+[2026-09-17 15:24:07] [RUNTIME] ffmpeg path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\ffmpeg.exe
+[2026-09-17 15:24:07] [RUNTIME] aria2c path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\aria2c.exe
+[2026-09-17 15:24:07] [RUNTIME] deno path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\deno.exe
+[2026-09-17 15:24:07] [RUNTIME] Download dimulai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq -> C:\Users\Administrator\Downloads\YTUI
+[2026-09-17 15:24:37] [RUNTIME] Download selesai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq
+[2026-09-17 15:24:43] [RUNTIME] yt-dlp path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\yt-dlp.exe
+[2026-09-17 15:24:43] [RUNTIME] ffmpeg path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\ffmpeg.exe
+[2026-09-17 15:24:43] [RUNTIME] aria2c path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\aria2c.exe
+[2026-09-17 15:24:43] [RUNTIME] deno path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\deno.exe
+[2026-09-17 15:24:43] [RUNTIME] Download dimulai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq -> C:\Users\Administrator\Downloads\YTUI
+[2026-09-17 15:25:16] [RUNTIME] Download selesai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq
+[2026-09-17 15:40:06] [RUNTIME] App YTUI dimulai
+[2026-09-17 15:40:06] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-17 15:56:04] [RUNTIME] App YTUI dimulai
+[2026-09-17 15:56:04] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-17 15:56:26] [RUNTIME] App YTUI dimulai
+[2026-09-17 15:56:26] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-17 15:56:44] [RUNTIME] App YTUI dimulai
+[2026-09-17 15:56:44] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-17 15:57:20] [RUNTIME] App YTUI dimulai
+[2026-09-17 15:57:20] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-17 15:57:32] [RUNTIME] App YTUI dimulai
+[2026-09-17 15:57:32] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-17 15:57:44] [RUNTIME] App YTUI dimulai
+[2026-09-17 15:57:44] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-17 16:01:23] [RUNTIME] App YTUI dimulai
+[2026-09-17 16:01:23] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-17 16:01:35] [RUNTIME] App YTUI dimulai
+[2026-09-17 16:01:35] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-17 16:01:46] [RUNTIME] App YTUI dimulai
+[2026-09-17 16:01:46] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools

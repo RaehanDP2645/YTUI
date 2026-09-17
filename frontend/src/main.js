@@ -1,5 +1,5 @@
 import './style.css';
-import { CancelDownload, DownloadBatch, DownloadDefault, SelectBatchFile } from '../wailsjs/go/main/App';
+import { CancelDownload, DownloadBatch, DownloadDefault, GetFileExistsPolicy, ResolveFileExists, SelectBatchFile, SetFileExistsPolicy } from '../wailsjs/go/main/App';
 import { EventsOn } from '../wailsjs/runtime/runtime';
 
 document.querySelector('#app').innerHTML = `
@@ -108,6 +108,16 @@ document.querySelector('#app').innerHTML = `
             <button id="batchDownloadBtn" class="secondary-button">Download Batch</button>
             <button id="cancelDownloadBtn" class="danger-button" disabled>Cancel Download</button>
           </div>
+
+          <div class="exists-row">
+            <label for="fileExistsPolicy">Jika file sudah ada</label>
+            <select id="fileExistsPolicy">
+              <option value="ask">Ask</option>
+              <option value="rename">Rename</option>
+              <option value="overwrite">Overwrite</option>
+              <option value="abort">Abort</option>
+            </select>
+          </div>
       
         </section>
       
@@ -134,6 +144,26 @@ document.querySelector('#app').innerHTML = `
       </div>
     </section>
   </main>
+
+  <div id="existsDialog" class="exists-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="existsDialogTitle">
+    <div class="exists-backdrop"></div>
+    <div class="exists-box">
+      <h2 id="existsDialogTitle">File already exists</h2>
+      <p class="exists-desc">File yang akan didownload sudah ada:</p>
+      <code id="existsPath"></code>
+
+      <label class="exists-remember">
+        <input type="checkbox" id="existsRemember" />
+        <span>Remember my choice for all downloads</span>
+      </label>
+
+      <div class="exists-actions">
+        <button id="existsRename" class="exists-btn-primary">Rename</button>
+        <button id="existsOverwrite" class="exists-btn-secondary">Overwrite</button>
+        <button id="existsAbort" class="exists-btn-danger">Abort</button>
+      </div>
+    </div>
+  </div>
 `;
 
 const urlInput = document.querySelector('#url');
@@ -151,18 +181,44 @@ const progressSpeed = document.querySelector('#progressSpeed');
 const progressEta = document.querySelector('#progressEta');
 const downloadList = document.querySelector('#downloadList');
 const downloadItems = new Map();
+const downloadItemEls = new Map();
 const selectBatchBtn = document.querySelector('#selectBatchBtn');
 const batchFileName = document.querySelector('#batchFileName');
 const clearBatchBtn = document.querySelector('#clearBatchBtn');
 const batchDownloadBtn = document.querySelector('#batchDownloadBtn');
 const parallelSelect = document.querySelector('#parallel');
 const cancelDownloadBtn =document.querySelector('#cancelDownloadBtn');
+const fileExistsPolicySelect = document.querySelector('#fileExistsPolicy');
+const existsDialog = document.querySelector('#existsDialog');
+const existsPath = document.querySelector('#existsPath');
+const existsRemember = document.querySelector('#existsRemember');
+const existsRenameBtn = document.querySelector('#existsRename');
+const existsOverwriteBtn = document.querySelector('#existsOverwrite');
+const existsAbortBtn = document.querySelector('#existsAbort');
 
 let selectedBatchFile = '';
+
+const existsQueue = [];
+let existsActive = null;
 
 EventsOn('download:progress', (event) => {
   updateProgress(event);
   updateDownloadList(event);
+});
+
+EventsOn('file-exists:ask', (data) => {
+  existsQueue.push(data);
+  showNextExistsDialog();
+});
+
+GetFileExistsPolicy().then((policy) => {
+  if (policy) {
+    fileExistsPolicySelect.value = policy;
+  }
+});
+
+fileExistsPolicySelect.addEventListener('change', () => {
+  SetFileExistsPolicy(fileExistsPolicySelect.value);
 });
 
 typeSelect.addEventListener('change', syncFormatOptions);
@@ -182,6 +238,7 @@ downloadBtn.addEventListener('click', async () => {
   }
 
   downloadItems.clear();
+  downloadItemEls.clear();
   renderDownloadList();
 
   downloadBtn.disabled = true;
@@ -263,6 +320,7 @@ batchDownloadBtn.addEventListener('click', async () => {
   }
 
   downloadItems.clear();
+  downloadItemEls.clear();
   renderDownloadList();
 
   batchDownloadBtn.disabled = true;
@@ -332,15 +390,143 @@ function syncModeState() {
 }
 
 
-function updateProgress(event) {
-  const percent = Number(event.percent || 0);
-  const safePercent = Math.max(0, Math.min(100, percent));
+// Smooth progress display.
+// Bar/percent dianimasikan mendekati nilai aktual terbaru dari yt-dlp dengan
+// requestAnimationFrame: tidak pernah melebihi nilai aktual, tidak pernah
+// mundur, dan konvergen cepat sehingga tetap akurat untuk download cepat/lambat.
+const progressEaseRate = 8;
+const progressEaseEpsilon = 0.05;
 
+const progressViews = new Map(); // key -> view { target, current, nodes, pending, lastTerminal, ts }
+let progressRaf = 0;
+
+function progressView(key) {
+  let view = progressViews.get(key);
+
+  if (!view) {
+    view = {
+      target: 0,
+      current: -1,
+      nodes: null,
+      pending: false,
+      lastTerminal: false,
+      ts: 0,
+    };
+    progressViews.set(key, view);
+  }
+
+  return view;
+}
+
+function applyProgressNode(view) {
+  if (!view.nodes) {
+    return;
+  }
+
+  const shown = Math.max(0, Math.min(100, view.current));
+  view.nodes.fill.style.width = `${shown}%`;
+  view.nodes.text.textContent = `${shown.toFixed(1)}%`;
+}
+
+function updateProgressView(key, nodes, event) {
+  const view = progressView(key);
+
+  if (nodes) {
+    view.nodes = nodes;
+  }
+
+  const percent = Math.max(0, Math.min(100, Number(event.percent || 0)));
+  const status = event.status;
+
+  if (status === 'queued') {
+    view.target = 0;
+    view.current = 0;
+    view.lastTerminal = false;
+    view.pending = true;
+  } else if (status === 'completed') {
+    view.target = 100;
+    view.current = 100;
+    view.lastTerminal = true;
+    view.pending = true;
+  } else if (status === 'failed' || status === 'canceled') {
+    view.target = Math.max(view.target, percent);
+    view.lastTerminal = true;
+    view.pending = true;
+  } else {
+    if (view.lastTerminal && percent === 0) {
+      view.target = 0;
+      view.current = 0;
+      view.lastTerminal = false;
+      view.pending = true;
+    } else if (percent > view.target) {
+      view.target = percent;
+      view.pending = true;
+    }
+  }
+
+  if (view.current < 0) {
+    view.current = view.target;
+  }
+
+  startProgressLoop();
+}
+
+function startProgressLoop() {
+  if (progressRaf) {
+    return;
+  }
+
+  progressRaf = requestAnimationFrame(function tick(ts) {
+    progressRaf = 0;
+    let keepRunning = false;
+
+    for (const view of progressViews.values()) {
+      if (!view.nodes) {
+        continue;
+      }
+
+      const gap = view.target - view.current;
+      const moving = Math.abs(gap) > progressEaseEpsilon;
+
+      if (view.pending && !moving) {
+        view.current = view.target;
+        applyProgressNode(view);
+      } else if (moving) {
+        const dt = view.ts ? Math.min((ts - view.ts) / 1000, 0.25) : 0.016;
+        const k = 1 - Math.exp(-progressEaseRate * dt);
+        view.current += gap * k;
+
+        if (Math.abs(view.target - view.current) <= progressEaseEpsilon) {
+          view.current = view.target;
+        }
+
+        applyProgressNode(view);
+        keepRunning = true;
+      }
+
+      view.pending = false;
+      view.ts = ts;
+    }
+
+    if (keepRunning) {
+      progressRaf = requestAnimationFrame(tick);
+    }
+  });
+}
+
+function clearProgressViews() {
+  for (const view of progressViews.values()) {
+    view.nodes = null;
+    view.pending = false;
+  }
+}
+
+function updateProgress(event) {
   progressStatus.textContent = event.message || event.status || 'Working';
-  progressPercent.textContent = `${safePercent.toFixed(1)}%`;
-  progressFill.style.width = `${safePercent}%`;
   progressSpeed.textContent = `Speed: ${event.speed || '-'}`;
   progressEta.textContent = `ETA: ${event.eta || '-'}`;
+
+  updateProgressView('main', { fill: progressFill, text: progressPercent }, event);
 
   if (event.status === 'completed') {
     setStatus('Download selesai.', 'success');
@@ -377,50 +563,105 @@ function updateDownloadList(event) {
   };
 
   downloadItems.set(event.url, next);
-  renderDownloadList();
+  updateDownloadItemDom(event.url, next);
 }
 
-function renderDownloadList() {
-  const items = Array.from(downloadItems.values());
+function updateDownloadItemDom(url, item) {
+  let els = downloadItemEls.get(url);
 
-  if (items.length === 0) {
-    downloadList.innerHTML = '';
+  if (!els) {
+    const root = document.createElement('article');
+    root.className = 'download-item';
+    root.innerHTML = `
+      <div class="download-item-top">
+        <strong></strong>
+        <span class="download-status"></span>
+      </div>
+      <div class="download-item-progress"><div></div></div>
+      <div class="download-item-meta">
+        <span class="pct"></span>
+        <span class="spd"></span>
+        <span class="eta"></span>
+      </div>
+    `;
+
+    els = {
+      root,
+      title: root.querySelector(':scope > .download-item-top > strong'),
+      status: root.querySelector(':scope > .download-item-top > .download-status'),
+      fill: root.querySelector(':scope > .download-item-progress > div'),
+      percent: root.querySelector(':scope > .download-item-meta > .pct'),
+      speed: root.querySelector(':scope > .download-item-meta > .spd'),
+      eta: root.querySelector(':scope > .download-item-meta > .eta'),
+    };
+
+    downloadList.appendChild(root);
+    downloadItemEls.set(url, els);
+  }
+
+  const percent = Math.max(0, Math.min(100, Number(item.percent || 0)));
+
+  els.title.textContent = item.url;
+  els.title.title = item.url;
+  els.status.textContent = item.status;
+  els.status.className = `download-status ${item.status}`;
+  els.speed.textContent = `Speed: ${item.speed || '-'}`;
+  els.eta.textContent = `ETA: ${item.eta || '-'}`;
+
+  updateProgressView(
+    url,
+    { fill: els.fill, text: els.percent },
+    { status: item.status, percent }
+  );
+}
+
+function showNextExistsDialog() {
+  if (existsActive || existsQueue.length === 0) {
     return;
   }
 
-  downloadList.innerHTML = items
-    .map((item) => {
-      const percent = Math.max(0, Math.min(100, Number(item.percent || 0)));
-
-      return `
-        <article class="download-item">
-          <div class="download-item-top">
-            <strong title="${escapeHtml(item.url)}">${escapeHtml(item.url)}</strong>
-            <span class="download-status ${escapeHtml(item.status)}">${escapeHtml(item.status)}</span>
-          </div>
-
-          <div class="download-item-progress">
-            <div style="width: ${percent}%"></div>
-          </div>
-
-          <div class="download-item-meta">
-            <span>${percent.toFixed(1)}%</span>
-            <span>Speed: ${escapeHtml(item.speed || '-')}</span>
-            <span>ETA: ${escapeHtml(item.eta || '-')}</span>
-          </div>
-          </article>
-      `;
-    })
-    .join('');
+  existsActive = existsQueue.shift();
+  existsPath.textContent = existsActive.path;
+  existsPath.title = existsActive.path;
+  existsDialog.hidden = false;
 }
 
-function escapeHtml(value) {
-  return String(value)
-    .replaceAll('&','&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;')
-    .replaceAll("'", '&#039;');
+function finishExistsDialog(choice) {
+  if (!existsActive) {
+    return;
+  }
+
+  const id = existsActive.id;
+  const remember = existsRemember.checked;
+  existsActive = null;
+
+  existsDialog.hidden = true;
+  existsRemember.checked = false;
+
+  if (remember) {
+    fileExistsPolicySelect.value = choice;
+  }
+
+  ResolveFileExists(id, choice, remember);
+  showNextExistsDialog();
+}
+
+existsAbortBtn.addEventListener('click', () => finishExistsDialog('abort'));
+existsOverwriteBtn.addEventListener('click', () => finishExistsDialog('overwrite'));
+existsRenameBtn.addEventListener('click', () => finishExistsDialog('rename'));
+
+function renderDownloadList() {
+  downloadList.innerHTML = '';
+  downloadItemEls.clear();
+  clearProgressViews();
+
+  if (downloadItems.size === 0) {
+    return;
+  }
+
+  for (const [url, item] of downloadItems) {
+    updateDownloadItemDom(url, item);
+  }
 }
 
 function setStatus(message, type) {

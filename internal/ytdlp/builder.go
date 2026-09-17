@@ -46,6 +46,8 @@ func BuildArgs(opts Options) ([]string, error) {
 	return buildDefaultArgs(opts), nil
 }
 
+const progressTemplate = "[PROG]|%(progress.status)s|%(progress.downloaded_bytes)s|%(progress.total_bytes)s|%(progress.total_bytes_estimate)s|%(progress._percent_str)s|%(progress.speed)s|%(progress.eta)s|%(progress._speed_str)s|%(progress._eta_str)s"
+
 func buildDefaultArgs(opts Options) []string {
 	outputTemplate := buildOutputTemplate(opts)
 
@@ -54,6 +56,7 @@ func buildDefaultArgs(opts Options) []string {
 		"--no-playlist",
 		"--windows-filenames",
 		"--ffmpeg-location", opts.FFmpegPath,
+		"--progress-template", progressTemplate,
 		"-o", outputTemplate,
 	}
 

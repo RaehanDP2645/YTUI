@@ -13,6 +13,7 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+	"time"
 
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 
@@ -23,7 +24,79 @@ import (
 
 const progressEventName = "download:progress"
 
+const progressFlushInterval = 100 * time.Millisecond
+
 var progressPattern = regexp.MustCompile(`\[download\]\s+(\d+(?:\.\d+)?)%.*?at\s+([^\s]+).*?ETA\s+([^\s]+)`)
+
+// progressBatcher menggabungkan update progress yang datang sangat cepat dan
+// mengirimnya ke frontend paling cepat sekali per progressFlushInterval.
+// Update terakhir per item selalu diteruskan sehingga tidak ada progress
+// terlewat, tapi jumlah event ke Wails/WebView2 tetap terbatas.
+type progressBatcher struct {
+	ctx  context.Context
+	mu   sync.Mutex
+	evt  *ProgressEvent
+	sent *ProgressEvent
+	done chan struct{}
+}
+
+func newProgressBatcher(ctx context.Context) *progressBatcher {
+	b := &progressBatcher{
+		ctx:  ctx,
+		done: make(chan struct{}),
+	}
+	go b.loop()
+
+	return b
+}
+
+func (b *progressBatcher) loop() {
+	ticker := time.NewTicker(progressFlushInterval)
+	defer ticker.Stop()
+
+	for {
+		select {
+		case <-ticker.C:
+			b.flush()
+		case <-b.done:
+			return
+		}
+	}
+}
+
+func (b *progressBatcher) push(event ProgressEvent) {
+	b.mu.Lock()
+	b.evt = &event
+	b.mu.Unlock()
+}
+
+func (b *progressBatcher) flush() {
+	b.mu.Lock()
+	if b.evt == nil || progressEventsEqual(*b.evt, b.sent) {
+		b.mu.Unlock()
+		return
+	}
+	event := *b.evt
+	sent := event
+	b.sent = &sent
+	b.mu.Unlock()
+
+	emitProgress(b.ctx, event)
+}
+
+func (b *progressBatcher) close() {
+	close(b.done)
+	b.flush()
+}
+
+func progressEventsEqual(a ProgressEvent, b *ProgressEvent) bool {
+	return b != nil &&
+		a.Status == b.Status &&
+		a.Percent == b.Percent &&
+		a.Speed == b.Speed &&
+		a.ETA == b.ETA &&
+		a.Message == b.Message
+}
 
 func DownloadDefault(ctx context.Context, req DownloadRequest) (DownloadResult, error) {
 	req.URL = strings.TrimSpace(req.URL)
@@ -80,9 +153,11 @@ func DownloadDefault(ctx context.Context, req DownloadRequest) (DownloadResult, 
 
 	logger.L.Runtime("Download dimulai: %s -> %s", req.URL, outputDir)
 
+	kind := mapDownloadKind(req.Type)
+
 	args, err := ytdlp.BuildArgs(ytdlp.Options{
 		URL:        req.URL,
-		Kind:       mapDownloadKind(req.Type),
+		Kind:       kind,
 		Mode:       ytdlp.ModeDefault,
 		Quality:    req.Quality,
 		OutputDir:  outputDir,
@@ -92,6 +167,38 @@ func DownloadDefault(ctx context.Context, req DownloadRequest) (DownloadResult, 
 	})
 	if err != nil {
 		return DownloadResult{}, err
+	}
+
+	// Tentukan nama file output aktual terlebih dahulu (metadata saja) dan
+	// periksa apakah file target sudah ada sebelum yt-dlp mulai men-download.
+	targetPath, err := resolveOutputPath(ctx, ytDlpPath, args, kind)
+	if err != nil {
+		logger.L.Error("Gagal menentukan nama file output: %s - err: %v", req.URL, err)
+		return DownloadResult{}, err
+	}
+
+	if _, statErr := os.Stat(targetPath); statErr == nil {
+		choice, err := handleExistingFile(ctx, targetPath)
+		if err != nil {
+			return DownloadResult{}, err
+		}
+
+		switch choice {
+		case ExistingFileRename:
+			renamed := uniqueExistingPath(targetPath)
+			args = replaceOutputTemplate(args, renamed)
+			logger.L.Runtime("File sudah ada, rename: %s -> %s", targetPath, renamed)
+		case ExistingFileOverwrite:
+			logger.L.Runtime("File sudah ada, overwrite: %s", targetPath)
+		case ExistingFileAbort:
+			emitProgress(ctx, ProgressEvent{
+				URL:     req.URL,
+				Status:  "canceled",
+				Message: "File sudah ada, download dibatalkan",
+			})
+			logger.L.Runtime("File sudah ada, download dibatalkan: %s", targetPath)
+			return DownloadResult{}, errors.New("download dibatalkan (file sudah ada)")
+		}
 	}
 
 	emitProgress(ctx, ProgressEvent{
@@ -118,6 +225,9 @@ func DownloadDefault(ctx context.Context, req DownloadRequest) (DownloadResult, 
 		return DownloadResult{}, err
 	}
 
+	batcher := newProgressBatcher(ctx)
+	defer batcher.close()
+
 	var wg sync.WaitGroup
 	var outputMu sync.Mutex
 	var outputLines []string
@@ -129,8 +239,8 @@ func DownloadDefault(ctx context.Context, req DownloadRequest) (DownloadResult, 
 	}
 
 	wg.Add(2)
-	go streamOutput(ctx, req.URL, stdout, collect, &wg)
-	go streamOutput(ctx, req.URL, stderr, collect, &wg)
+	go streamOutput(ctx, req.URL, stdout, collect, batcher.push, &wg)
+	go streamOutput(ctx, req.URL, stderr, collect, batcher.push, &wg)
 
 	wg.Wait()
 
@@ -179,21 +289,22 @@ func DownloadDefault(ctx context.Context, req DownloadRequest) (DownloadResult, 
 	}, nil
 }
 
-func streamOutput(ctx context.Context, url string, reader io.Reader, collect func(string), wg *sync.WaitGroup) {
+func streamOutput(ctx context.Context, url string, reader io.Reader, collect func(string), onProgress func(ProgressEvent), wg *sync.WaitGroup) {
 	defer wg.Done()
 
 	scanner := bufio.NewScanner(reader)
+	scanner.Buffer(make([]byte, 0, 64*1024), 1024*1024)
 	for scanner.Scan() {
 		line := scanner.Text()
 		collect(line)
 
 		if event, ok := parseProgressLine(url, line); ok {
-			emitProgress(ctx, event)
+			onProgress(event)
 			continue
 		}
 
 		if strings.Contains(line, "[download] Destination:") {
-			emitProgress(ctx, ProgressEvent{
+			onProgress(ProgressEvent{
 				URL:     url,
 				Status:  "downloading",
 				Message: "Menyiapkan file output",
@@ -212,6 +323,73 @@ func streamOutput(ctx context.Context, url string, reader io.Reader, collect fun
 }
 
 func parseProgressLine(url string, line string) (ProgressEvent, bool) {
+	if event, ok := parseStructuredProgress(url, line); ok {
+		return event, true
+	}
+
+	return parseLegacyProgress(url, line)
+}
+
+const progressLinePrefix = "[PROG]|"
+
+// parseStructuredProgress mem-parse baris progress terstruktur dari
+// --progress-template. Formatnya: [PROG]|status|downloaded|total|totalEst|percent|speed|eta|speedStr|etaStr
+func parseStructuredProgress(url string, line string) (ProgressEvent, bool) {
+	if !strings.HasPrefix(line, progressLinePrefix) {
+		return ProgressEvent{}, false
+	}
+
+	parts := strings.SplitN(line, "|", 10)
+	if len(parts) < 10 {
+		return ProgressEvent{}, false
+	}
+
+	downloaded, _ := strconv.ParseFloat(strings.TrimSpace(parts[2]), 64)
+	total, _ := strconv.ParseFloat(strings.TrimSpace(parts[3]), 64)
+	totalEstimate, _ := strconv.ParseFloat(strings.TrimSpace(parts[4]), 64)
+
+	if total <= 0 && totalEstimate > 0 {
+		total = totalEstimate
+	}
+
+	var percent float64
+	switch {
+	case total > 0:
+		percent = downloaded / total * 100
+	default:
+		if rawPercent, err := strconv.ParseFloat(strings.Trim(strings.TrimSpace(parts[5]), "%"), 64); err == nil {
+			percent = rawPercent
+		}
+	}
+
+	if percent < 0 {
+		percent = 0
+	}
+	if percent > 100 {
+		percent = 100
+	}
+
+	return ProgressEvent{
+		URL:     url,
+		Status:  "downloading",
+		Percent: percent,
+		Speed:   cleanProgressValue(parts[8]),
+		ETA:     cleanProgressValue(parts[9]),
+		Message: "Downloading",
+		RawLine: line,
+	}, true
+}
+
+func cleanProgressValue(value string) string {
+	value = strings.TrimSpace(value)
+	if value == "" || strings.EqualFold(value, "N/A") || strings.EqualFold(value, "None") || strings.EqualFold(value, "Unknown") {
+		return "-"
+	}
+
+	return value
+}
+
+func parseLegacyProgress(url string, line string) (ProgressEvent, bool) {
 	matches := progressPattern.FindStringSubmatch(line)
 	if len(matches) != 4 {
 		return ProgressEvent{}, false

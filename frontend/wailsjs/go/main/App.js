@@ -14,10 +14,22 @@ export function DownloadDefault(arg1) {
   return window['go']['main']['App']['DownloadDefault'](arg1);
 }
 
+export function GetFileExistsPolicy() {
+  return window['go']['main']['App']['GetFileExistsPolicy']();
+}
+
 export function Greet(arg1) {
   return window['go']['main']['App']['Greet'](arg1);
 }
 
+export function ResolveFileExists(arg1, arg2, arg3) {
+  return window['go']['main']['App']['ResolveFileExists'](arg1, arg2, arg3);
+}
+
 export function SelectBatchFile() {
   return window['go']['main']['App']['SelectBatchFile']();
+}
+
+export function SetFileExistsPolicy(arg1) {
+  return window['go']['main']['App']['SetFileExistsPolicy'](arg1);
 }
