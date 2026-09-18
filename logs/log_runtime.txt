@@ -539,3 +539,5 @@
 [2026-09-18 13:47:34] [RUNTIME] Output target: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 128K.mp3
 [2026-09-18 13:47:34] [RUNTIME] [ConflictCheck] outputDir=C:\Users\Administrator\Downloads\YTUI filename=可惜夜 - 128K.mp3 fullPath=C:\Users\Administrator\Downloads\YTUI\可惜夜 - 128K.mp3 exists=false
 [2026-09-18 13:47:57] [RUNTIME] Download selesai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq
+[2026-09-18 13:49:53] [RUNTIME] App YTUI shutdown: menghentikan BGUTIL server
+[2026-09-18 13:49:53] [RUNTIME] BGUTIL stopping (server eksternal dibiarkan berjalan)
