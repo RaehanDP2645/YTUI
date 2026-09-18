@@ -143,12 +143,12 @@ func DownloadDefault(ctx context.Context, req DownloadRequest) (DownloadResult, 
 		logger.L.Runtime("aria2c tidak ditemukan, pakai downloader bawaan: %v", err)
 	}
 
-	denoPath := ""
-	if p, err := findBinary(toolCandidates(toolsDir, "deno")...); err == nil {
-		denoPath = p
-		logger.L.Runtime("deno path: %s", p)
+	quickJSPath := ""
+	if p, err := findBinary(toolCandidates(toolsDir, "qjs")...); err == nil {
+		quickJSPath = p
+		logger.L.Runtime("quickjs path: %s", p)
 	} else {
-		logger.L.Runtime("deno tidak ditemukan, pakai node/yang ada: %v", err)
+		logger.L.Runtime("qjs tidak ditemukan, pakai runtime bawaan yt-dlp: %v", err)
 	}
 
 	logger.L.Runtime("Download dimulai: %s -> %s", req.URL, outputDir)
@@ -156,14 +156,14 @@ func DownloadDefault(ctx context.Context, req DownloadRequest) (DownloadResult, 
 	kind := mapDownloadKind(req.Type)
 
 	args, err := ytdlp.BuildArgs(ytdlp.Options{
-		URL:        req.URL,
-		Kind:       kind,
-		Mode:       ytdlp.ModeDefault,
-		Quality:    req.Quality,
-		OutputDir:  outputDir,
-		FFmpegPath: ffmpegPath,
-		Aria2cPath: aria2cPath,
-		DenoPath:   denoPath,
+		URL:         req.URL,
+		Kind:        kind,
+		Mode:        ytdlp.ModeDefault,
+		Quality:     req.Quality,
+		OutputDir:   outputDir,
+		FFmpegPath:  ffmpegPath,
+		Aria2cPath:  aria2cPath,
+		QuickJSPath: quickJSPath,
 	})
 	if err != nil {
 		return DownloadResult{}, err

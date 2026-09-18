@@ -37,9 +37,7 @@ jobs:
           Expand-Archive "$env:TEMP\aria2.zip" "$env:TEMP\aria2" -Force
           Copy-Item "$env:TEMP\aria2\aria2-1.37.0-win-64bit-build1\aria2c.exe" "bin\aria2c.exe"
 
-          curl.exe -L -o "$env:TEMP\deno.zip" "https://github.com/denoland/deno/releases/latest/download/deno-x86_64-pc-windows-msvc.zip"
-          Expand-Archive "$env:TEMP\deno.zip" "$env:TEMP\deno" -Force
-          Copy-Item "$env:TEMP\deno\deno.exe" "bin\deno.exe"
+          curl.exe -L -o "bin\qjs.exe" "https://github.com/quickjs-ng/quickjs/releases/latest/download/qjs-windows-x86_64.exe"
 
           Get-ChildItem bin | Select-Object Name, Length
 
@@ -94,8 +92,8 @@ jobs:
           tar -xf /tmp/ffmpeg.tar.xz -C /tmp
           cp /tmp/ffmpeg-*-static/ffmpeg bin/ffmpeg && chmod +x bin/ffmpeg
 
-          curl -fL -o /tmp/deno.zip "https://github.com/denoland/deno/releases/latest/download/deno-x86_64-unknown-linux-gnu.zip"
-          unzip -o /tmp/deno.zip -d bin && chmod +x bin/deno
+          curl -fL -o bin/qjs "https://github.com/quickjs-ng/quickjs/releases/latest/download/qjs-linux-x86_64"
+          chmod +x bin/qjs
 
           # aria2c dipasang via apt di step deps; opsional ditaruh di bin juga
           cp "$(command -v aria2c)" bin/aria2c || true

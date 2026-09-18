@@ -373,3 +373,109 @@
 [2026-09-17 21:39:55] [RUNTIME] Output target: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4
 [2026-09-17 21:39:55] [RUNTIME] [ConflictCheck] outputDir=C:\Users\Administrator\Downloads\YTUI filename=可惜夜 - 1080p.mp4 fullPath=C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4 exists=true
 [2026-09-17 21:39:55] [RUNTIME] File sudah ada, download dibatalkan: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4
+[2026-09-18 09:05:04] [RUNTIME] App YTUI dimulai
+[2026-09-18 09:05:04] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-18 09:12:15] [RUNTIME] App YTUI dimulai
+[2026-09-18 09:12:15] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-18 09:12:25] [RUNTIME] App YTUI dimulai
+[2026-09-18 09:12:25] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-18 09:12:41] [RUNTIME] App YTUI dimulai
+[2026-09-18 09:12:41] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-18 09:13:33] [RUNTIME] yt-dlp path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\yt-dlp.exe
+[2026-09-18 09:13:33] [RUNTIME] ffmpeg path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\ffmpeg.exe
+[2026-09-18 09:13:33] [RUNTIME] aria2c path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\aria2c.exe
+[2026-09-18 09:13:33] [RUNTIME] quickjs path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\qjs.exe
+[2026-09-18 09:13:33] [RUNTIME] Download dimulai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq -> C:\Users\Administrator\Downloads\YTUI
+[2026-09-18 09:13:38] [RUNTIME] [ConflictCheck] Title kosong dalam probe, mengambil title dari info dict: C:\Users\Administrator\Downloads\YTUI\ - 1080p.mp4
+[2026-09-18 09:13:42] [RUNTIME] [ConflictCheck] Path dikoreksi: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4
+[2026-09-18 09:13:42] [RUNTIME] Output target: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4
+[2026-09-18 09:13:42] [RUNTIME] [ConflictCheck] outputDir=C:\Users\Administrator\Downloads\YTUI filename=可惜夜 - 1080p.mp4 fullPath=C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4 exists=true
+[2026-09-18 09:13:42] [RUNTIME] [ConflictDialog] opened=true path=C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4
+[2026-09-18 09:13:48] [RUNTIME] File sudah ada, rename: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4 -> C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p (1).mp4
+[2026-09-18 11:18:40] [RUNTIME] App YTUI dimulai
+[2026-09-18 11:18:41] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-18 11:19:37] [RUNTIME] App YTUI dimulai
+[2026-09-18 11:19:37] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-18 11:19:38] [RUNTIME] BGUTIL starting
+[2026-09-18 11:19:38] [RUNTIME] BGUTIL spawn: C:\Users\Administrator\AppData\Local\YTUI\tools\node.exe build\main.js (cwd=C:\Users\Administrator\AppData\Local\YTUI\tools\bgutil\server)
+[2026-09-18 11:19:41] [RUNTIME] BGUTIL stdout: Started POT server (v2.0.0) on address [::1]:4416, 127.0.0.1:4416
+[2026-09-18 11:19:41] [RUNTIME] BGUTIL ready
+[2026-09-18 11:20:01] [RUNTIME] App YTUI shutdown: menghentikan BGUTIL server
+[2026-09-18 11:20:01] [RUNTIME] BGUTIL stopping
+[2026-09-18 11:20:01] [RUNTIME] BGUTIL stopped
+[2026-09-18 11:21:17] [RUNTIME] App YTUI dimulai
+[2026-09-18 11:21:17] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-18 11:21:18] [RUNTIME] BGUTIL starting
+[2026-09-18 11:21:18] [RUNTIME] BGUTIL spawn: C:\Users\Administrator\AppData\Local\YTUI\tools\node.exe build\main.js (cwd=C:\Users\Administrator\AppData\Local\YTUI\tools\bgutil\server)
+[2026-09-18 11:21:21] [RUNTIME] BGUTIL stdout: Started POT server (v2.0.0) on address [::1]:4416, 127.0.0.1:4416
+[2026-09-18 11:21:21] [RUNTIME] BGUTIL ready
+[2026-09-18 11:21:36] [RUNTIME] App YTUI shutdown: menghentikan BGUTIL server
+[2026-09-18 11:21:36] [RUNTIME] BGUTIL stopping
+[2026-09-18 11:21:36] [RUNTIME] BGUTIL stopped
+[2026-09-18 11:24:52] [RUNTIME] App YTUI dimulai
+[2026-09-18 11:24:52] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-18 11:25:23] [RUNTIME] App YTUI dimulai
+[2026-09-18 11:25:23] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-18 11:26:07] [RUNTIME] App YTUI dimulai
+[2026-09-18 11:26:07] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-18 11:26:08] [RUNTIME] BGUTIL starting
+[2026-09-18 11:26:08] [RUNTIME] BGUTIL spawn: C:\Users\Administrator\AppData\Local\YTUI\tools\node.exe build\main.js (cwd=C:\Users\Administrator\AppData\Local\YTUI\tools\bgutil\server)
+[2026-09-18 11:26:13] [RUNTIME] BGUTIL stdout: Started POT server (v2.0.0) on address [::1]:4416, 127.0.0.1:4416
+[2026-09-18 11:26:13] [RUNTIME] BGUTIL ready
+[2026-09-18 11:26:35] [RUNTIME] yt-dlp path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\yt-dlp.exe
+[2026-09-18 11:26:35] [RUNTIME] ffmpeg path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\ffmpeg.exe
+[2026-09-18 11:26:35] [RUNTIME] aria2c path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\aria2c.exe
+[2026-09-18 11:26:35] [RUNTIME] quickjs path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\qjs.exe
+[2026-09-18 11:26:35] [RUNTIME] Download dimulai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq -> C:\Users\Administrator\Downloads\YTUI
+[2026-09-18 11:26:40] [RUNTIME] [ConflictCheck] Title kosong dalam probe, mengambil title dari info dict: C:\Users\Administrator\Downloads\YTUI\ - 1080p.mp4
+[2026-09-18 11:26:44] [RUNTIME] [ConflictCheck] Path dikoreksi: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4
+[2026-09-18 11:26:44] [RUNTIME] Output target: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4
+[2026-09-18 11:26:44] [RUNTIME] [ConflictCheck] outputDir=C:\Users\Administrator\Downloads\YTUI filename=可惜夜 - 1080p.mp4 fullPath=C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4 exists=true
+[2026-09-18 11:26:44] [RUNTIME] [ConflictDialog] opened=true path=C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4
+[2026-09-18 11:26:47] [RUNTIME] File sudah ada, rename: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4 -> C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p (1).mp4
+[2026-09-18 11:27:09] [RUNTIME] Download selesai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq
+[2026-09-18 13:25:39] [RUNTIME] App YTUI dimulai
+[2026-09-18 13:25:40] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-18 13:25:59] [RUNTIME] App YTUI dimulai
+[2026-09-18 13:26:00] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-18 13:26:31] [RUNTIME] App YTUI dimulai
+[2026-09-18 13:26:32] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-18 13:26:33] [RUNTIME] BGUTIL starting
+[2026-09-18 13:26:33] [RUNTIME] BGUTIL already running externally
+[2026-09-18 13:26:51] [RUNTIME] yt-dlp path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\yt-dlp.exe
+[2026-09-18 13:26:51] [RUNTIME] ffmpeg path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\ffmpeg.exe
+[2026-09-18 13:26:51] [RUNTIME] aria2c path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\aria2c.exe
+[2026-09-18 13:26:51] [RUNTIME] quickjs path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\qjs.exe
+[2026-09-18 13:26:51] [RUNTIME] Download dimulai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq -> C:\Users\Administrator\Downloads\YTUI
+[2026-09-18 13:26:56] [RUNTIME] [ConflictCheck] Title kosong dalam probe, mengambil title dari info dict: C:\Users\Administrator\Downloads\YTUI\ - 1080p.mp4
+[2026-09-18 13:27:02] [RUNTIME] [ConflictCheck] Path dikoreksi: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4
+[2026-09-18 13:27:02] [RUNTIME] Output target: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4
+[2026-09-18 13:27:02] [RUNTIME] [ConflictCheck] outputDir=C:\Users\Administrator\Downloads\YTUI filename=可惜夜 - 1080p.mp4 fullPath=C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4 exists=true
+[2026-09-18 13:27:02] [RUNTIME] [ConflictDialog] opened=true path=C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4
+[2026-09-18 13:28:23] [RUNTIME] File sudah ada, rename: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4 -> C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p (1).mp4
+[2026-09-18 13:28:44] [RUNTIME] Download selesai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq
+[2026-09-18 13:34:50] [RUNTIME] yt-dlp path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\yt-dlp.exe
+[2026-09-18 13:34:50] [RUNTIME] ffmpeg path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\ffmpeg.exe
+[2026-09-18 13:34:50] [RUNTIME] aria2c path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\aria2c.exe
+[2026-09-18 13:34:50] [RUNTIME] quickjs path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\qjs.exe
+[2026-09-18 13:34:50] [RUNTIME] Download dimulai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq -> C:\Users\Administrator\Downloads\YTUI
+[2026-09-18 13:34:54] [RUNTIME] [ConflictCheck] Title kosong dalam probe, mengambil title dari info dict: C:\Users\Administrator\Downloads\YTUI\ - 320K.webm
+[2026-09-18 13:34:59] [RUNTIME] [ConflictCheck] Path dikoreksi: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 320K.webm
+[2026-09-18 13:34:59] [RUNTIME] Output target: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 320K.mp3
+[2026-09-18 13:34:59] [RUNTIME] [ConflictCheck] outputDir=C:\Users\Administrator\Downloads\YTUI filename=可惜夜 - 320K.mp3 fullPath=C:\Users\Administrator\Downloads\YTUI\可惜夜 - 320K.mp3 exists=false
+[2026-09-18 13:35:23] [RUNTIME] Download selesai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq
+[2026-09-18 13:37:07] [RUNTIME] yt-dlp path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\yt-dlp.exe
+[2026-09-18 13:37:07] [RUNTIME] ffmpeg path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\ffmpeg.exe
+[2026-09-18 13:37:07] [RUNTIME] aria2c path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\aria2c.exe
+[2026-09-18 13:37:07] [RUNTIME] quickjs path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\qjs.exe
+[2026-09-18 13:37:07] [RUNTIME] Download dimulai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq -> C:\Users\Administrator\Downloads\YTUI
+[2026-09-18 13:37:12] [RUNTIME] [ConflictCheck] Title kosong dalam probe, mengambil title dari info dict: C:\Users\Administrator\Downloads\YTUI\ - 720p.mp4
+[2026-09-18 13:37:24] [RUNTIME] User membatalkan download
+[2026-09-18 13:37:26] [RUNTIME] App YTUI shutdown: menghentikan BGUTIL server
+[2026-09-18 13:37:26] [RUNTIME] BGUTIL stopping (server eksternal dibiarkan berjalan)
+[2026-09-18 13:37:48] [RUNTIME] App YTUI dimulai
+[2026-09-18 13:37:48] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-18 13:38:04] [RUNTIME] App YTUI dimulai
+[2026-09-18 13:38:04] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-18 13:38:05] [RUNTIME] BGUTIL starting
+[2026-09-18 13:38:05] [RUNTIME] BGUTIL already running externally

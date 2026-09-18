@@ -60,8 +60,8 @@ func buildDefaultArgs(opts Options) []string {
 		"-o", outputTemplate,
 	}
 
-	if opts.DenoPath != "" {
-		baseArgs = append(baseArgs, "--js-runtimes", "deno:"+opts.DenoPath)
+	if opts.QuickJSPath != "" {
+		baseArgs = append(baseArgs, "--js-runtimes", "quickjs:"+opts.QuickJSPath)
 	}
 
 	if opts.Aria2cPath != "" {

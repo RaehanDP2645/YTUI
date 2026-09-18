@@ -9,3 +9,10 @@ debug.txt
 logs/*.txt
 new feature.txt
 *-bak.*
+
+# Node.js dependencies
+node_modules/
+**/node_modules/
+
+# BGUtil development repository
+bin/yt-dlp-plugins/bgutil-ytdlp-pot-provider/server/node_modules/

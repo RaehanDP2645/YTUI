@@ -3,6 +3,7 @@ package main
 import (
 	"YTUI/internal/downloader"
 	"YTUI/internal/logger"
+	"YTUI/internal/potserver"
 	"context"
 	"encoding/base64"
 	"fmt"
@@ -18,6 +19,8 @@ type App struct {
 	ctx    context.Context
 	cancel context.CancelFunc
 
+	potServer *potserver.Manager
+
 	// fileExistsMu melindungi state dialog "file sudah ada".
 	fileExistsMu     sync.Mutex
 	fileExistsWaits  map[string]chan downloader.ExistingFileChoice
@@ -29,6 +32,7 @@ func NewApp() *App {
 	return &App{
 		fileExistsWaits:  make(map[string]chan downloader.ExistingFileChoice),
 		fileExistsPolicy: downloader.ExistingFileAsk,
+		potServer:        potserver.New(),
 	}
 }
 
@@ -37,6 +41,25 @@ func NewApp() *App {
 func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
 	downloader.SetExistingFileHandler(a.resolveExistingFile)
+
+	// BGUTIL POT server dijalankan sebagai background process. Tooling sudah
+	// diekstrak sebelum wails.Run, jadi langsung bisa dipakai. Start() berjalan
+	// di goroutine agar UI tidak terblokir saat menunggu server siap; kegagalan
+	// BGUTIL tidak boleh menahan startup aplikasi.
+	go a.potServer.Start()
+}
+
+// shutdown menjaga lifecycle di saat aplikasi ditutup: menghentikan proses
+// Node BGUTIL milik aplikasi dengan aman.
+func (a *App) shutdown(ctx context.Context) {
+	if logger.L != nil {
+		logger.L.Runtime("App YTUI shutdown: menghentikan BGUTIL server")
+	} else {
+		println("App YTUI shutdown: menghentikan BGUTIL server")
+	}
+	if a.potServer != nil {
+		a.potServer.Stop()
+	}
 }
 
 // Greet returns a greeting for the given name
