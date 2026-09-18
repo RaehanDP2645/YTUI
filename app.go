@@ -119,6 +119,7 @@ func (a *App) resolveExistingFile(ctx context.Context, path string) (downloader.
 		"id":   id,
 		"path": path,
 	})
+	logger.L.Runtime("[ConflictDialog] opened=true path=%s", path)
 
 	select {
 	case choice := <-ch:

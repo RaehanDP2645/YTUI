@@ -3,12 +3,14 @@ package downloader
 import (
 	"bufio"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
 	"os"
 	"os/exec"
 	"path/filepath"
+	"regexp"
 	"strings"
 	"sync"
 
@@ -89,6 +91,173 @@ func handleExistingFile(ctx context.Context, path string) (ExistingFileChoice, e
 	return handler(ctx, path)
 }
 
+var timestampRe = regexp.MustCompile(`[0-9]+(?::[0-9]+)+`)
+
+// windowsSanitizeFilename adalah port dari sanitize_filename yt-dlp dengan
+// restricted=false dan is_id=NO_DEFAULT (mode default saat argumen download
+// memakai --windows-filenames tanpa --restrict-filenames). Dipakai agar hasil
+// rekonstruksi path sama persis dengan nama file yang benar-benar dibuat oleh
+// yt-dlp saat download.
+func windowsSanitizeFilename(s string) string {
+	if s == "" {
+		return ""
+	}
+
+	s = timestampRe.ReplaceAllStringFunc(s, func(m string) string {
+		return strings.ReplaceAll(m, ":", "_")
+	})
+
+	var b strings.Builder
+	b.Grow(len(s))
+	for _, r := range s {
+		b.WriteString(replaceInsane(r))
+	}
+	result := b.String()
+
+	// Langkah post-process mengikuti sanitize_filename yt-dlp untuk
+	// is_id=NO_DEFAULT: runtuhkan rangkaian \0X yang identik, buang karakter
+	// pengganti (\0X, spasi, _, -) di awal/akhir hanya bila diapit \0.,
+	// lalu hapus semua \0. Karena replaceInsane hanya menghasilkan "\0 ",
+	// implementasinya cukup memakai operasi byte sederhana.
+	result = collapseNulPairs(result)
+	result = stripLeadingNul(result)
+	result = stripTrailingNul(result)
+	result = strings.ReplaceAll(result, "\x00", "")
+	if result == "" {
+		result = "_"
+	}
+
+	return result
+}
+
+// replaceInsane mengikuti replace_insane di sanitize_filename yt-dlp untuk
+// restricted=false. Percabangan yang hanya aktif saat restricted=true atau
+// is_id=False tidak diperlukan dan tidak diterjemahkan.
+func replaceInsane(r rune) string {
+	switch {
+	case r == '\n':
+		return "\x00 "
+	case r == '/':
+		return "\u29F8"
+	case r == '\\':
+		return "\u29F9"
+	case strings.ContainsRune(`"*:<>?|`, r):
+		return string(rune(r + 0xFEE0))
+	case r < 32 || r == 127:
+		return ""
+	default:
+		return string(r)
+	}
+}
+
+// collapseNulPairs menyatukan rangkaian substitusi \0X yang berulang menjadi
+// satu (padanan re.sub '(\0.)(?:(?=\1)..)+' -> '\1'). Karena hanya ada "\0 ",
+// cukup runtuhkan run "\0 " berturut-turut.
+func collapseNulPairs(s string) string {
+	if !strings.Contains(s, "\x00") {
+		return s
+	}
+
+	var b strings.Builder
+	for i := 0; i < len(s); {
+		if s[i] == 0x00 && i+1 < len(s) {
+			b.WriteString(s[i : i+2])
+			c := s[i+1]
+			i += 2
+			for i+1 < len(s) && s[i] == 0x00 && s[i+1] == c {
+				i += 2
+			}
+			continue
+		}
+		b.WriteByte(s[i])
+		i++
+	}
+	return b.String()
+}
+
+func isSubstChar(b byte) bool {
+	return b == ' ' || b == '_' || b == '-'
+}
+
+// stripLeadingNul adalah padanan '^\0.(?:\0.|[ _-])*'. Hanya berlaku bila
+// string diawali \0.; karakter tanpa \0 di awal tidak diubah.
+func stripLeadingNul(s string) string {
+	if len(s) < 2 || s[0] != 0x00 {
+		return s
+	}
+
+	i := 2
+	for i < len(s) {
+		if s[i] == 0x00 && i+1 < len(s) {
+			i += 2
+		} else if isSubstChar(s[i]) {
+			i++
+		} else {
+			break
+		}
+	}
+	if i > len(s) {
+		i = len(s)
+	}
+	return s[i:]
+}
+
+// stripTrailingNul adalah padanan '(?:\0.|[ _-])*\0.$'. Hanya berlaku bila
+// string diakhiri pasangan \0. (dua byte terakhir = \0X).
+func stripTrailingNul(s string) string {
+	n := len(s)
+	if n < 2 || s[n-2] != 0x00 {
+		return s
+	}
+
+	i := n - 2
+	for i >= 2 {
+		if s[i-2] == 0x00 {
+			i -= 2
+		} else if isSubstChar(s[i-1]) {
+			i--
+		} else {
+			break
+		}
+	}
+	return s[:i]
+}
+
+// titleEmptyInPath mendeteksi apakah bagian %(title)s pada hasil probe
+// --print filename kosong. Template output selalu berbentuk
+// "%(title)s - <suffix>.<ext>", sehingga title kosong menghasilkan basename
+// yang diawali " - ".
+func titleEmptyInPath(path string) bool {
+	base := filepath.Base(path)
+	return strings.HasPrefix(base, " - ")
+}
+
+// probeRealTitle menjalankan yt-dlp --dump-single-json untuk mendapatkan title
+// final (dari info dict) yang tidak tersedia pada ekspansi awal --print.
+func probeRealTitle(ctx context.Context, ytDlpPath string, downloadArgs []string) (string, error) {
+	url := downloadArgs[len(downloadArgs)-1]
+	probeArgs := make([]string, 0, len(downloadArgs)+1)
+	probeArgs = append(probeArgs, downloadArgs[:len(downloadArgs)-1]...)
+	probeArgs = append(probeArgs, "--dump-single-json", url)
+
+	cmd := exec.CommandContext(ctx, ytDlpPath, probeArgs...)
+	hideWindow(cmd)
+
+	out, err := cmd.Output()
+	if err != nil {
+		return "", fmt.Errorf("dump-single-json gagal: %w", err)
+	}
+
+	var info struct {
+		Title string `json:"title"`
+	}
+	if err := json.Unmarshal(out, &info); err != nil {
+		return "", fmt.Errorf("parse info json gagal: %w", err)
+	}
+
+	return info.Title, nil
+}
+
 // resolveOutputPath menjalankan yt-dlp (metadata saja, tanpa download) untuk
 // mengetahui nama file output aktual sebelum proses download dimulai. Argumen
 // probe sama persis dengan argumen download agar nama yang dihasilkan pasti
@@ -155,6 +324,23 @@ func resolveOutputPath(ctx context.Context, ytDlpPath string, downloadArgs []str
 
 	if path == "" {
 		return "", errors.New("yt-dlp tidak mengembalikan nama file output")
+	}
+
+	// Beberapa video (umumnya judul non-ASCII) baru mengisi title di info dict
+	// final, sehingga ekspansi %(title)s pada --print filename menghasilkan
+	// string kosong dan basename diawali " - ". Fallback: ambil title real dari
+	// --dump-single-json lalu rekonstruksi path agar sama dengan file yang akan
+	// dibuat download sungguhan.
+	if titleEmptyInPath(path) {
+		logger.L.Runtime("[ConflictCheck] Title kosong dalam probe, mengambil title dari info dict: %s", path)
+		if realTitle, err := probeRealTitle(ctx, ytDlpPath, downloadArgs); err == nil && realTitle != "" {
+			dir := filepath.Dir(path)
+			base := filepath.Base(path)
+			path = filepath.Join(dir, windowsSanitizeFilename(realTitle)+base)
+			logger.L.Runtime("[ConflictCheck] Path dikoreksi: %s", path)
+		} else {
+			logger.L.Runtime("[ConflictCheck] Gagal mengambil title real: %v", err)
+		}
 	}
 
 	// Untuk mode music, yt-dlp melakukan ekstraksi audio (-x --audio-format mp3)

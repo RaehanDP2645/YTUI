@@ -274,3 +274,102 @@
 [2026-09-17 16:01:35] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
 [2026-09-17 16:01:46] [RUNTIME] App YTUI dimulai
 [2026-09-17 16:01:46] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-17 16:13:23] [RUNTIME] App YTUI dimulai
+[2026-09-17 16:13:23] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-17 16:13:53] [RUNTIME] App YTUI dimulai
+[2026-09-17 16:13:53] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-17 16:14:18] [RUNTIME] App YTUI dimulai
+[2026-09-17 16:14:18] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-17 16:16:29] [RUNTIME] yt-dlp path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\yt-dlp.exe
+[2026-09-17 16:16:29] [RUNTIME] ffmpeg path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\ffmpeg.exe
+[2026-09-17 16:16:29] [RUNTIME] aria2c path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\aria2c.exe
+[2026-09-17 16:16:29] [RUNTIME] deno path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\deno.exe
+[2026-09-17 16:16:29] [RUNTIME] Download dimulai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq -> C:\Users\Administrator\Downloads\YTUI
+[2026-09-17 16:16:58] [RUNTIME] Output target: C:\Users\Administrator\Downloads\YTUI\ - 1080p.mp4
+[2026-09-17 16:17:20] [RUNTIME] Download selesai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq
+[2026-09-17 16:17:27] [RUNTIME] yt-dlp path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\yt-dlp.exe
+[2026-09-17 16:17:27] [RUNTIME] ffmpeg path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\ffmpeg.exe
+[2026-09-17 16:17:27] [RUNTIME] aria2c path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\aria2c.exe
+[2026-09-17 16:17:27] [RUNTIME] deno path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\deno.exe
+[2026-09-17 16:17:27] [RUNTIME] Download dimulai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq -> C:\Users\Administrator\Downloads\YTUI
+[2026-09-17 16:17:33] [RUNTIME] Output target: C:\Users\Administrator\Downloads\YTUI\ - 1080p.mp4
+[2026-09-17 16:17:38] [RUNTIME] Download selesai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq
+[2026-09-17 20:35:36] [RUNTIME] App YTUI dimulai
+[2026-09-17 20:35:36] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-17 21:33:53] [RUNTIME] App YTUI dimulai
+[2026-09-17 21:33:53] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-17 21:34:14] [RUNTIME] App YTUI dimulai
+[2026-09-17 21:34:14] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
+[2026-09-17 21:34:36] [RUNTIME] yt-dlp path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\yt-dlp.exe
+[2026-09-17 21:34:36] [RUNTIME] ffmpeg path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\ffmpeg.exe
+[2026-09-17 21:34:36] [RUNTIME] aria2c path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\aria2c.exe
+[2026-09-17 21:34:36] [RUNTIME] deno path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\deno.exe
+[2026-09-17 21:34:36] [RUNTIME] Download dimulai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq -> C:\Users\Administrator\Downloads\YTUI
+[2026-09-17 21:34:42] [RUNTIME] [ConflictCheck] Title kosong dalam probe, mengambil title dari info dict: C:\Users\Administrator\Downloads\YTUI\ - 1080p.mp4
+[2026-09-17 21:34:48] [RUNTIME] [ConflictCheck] Path dikoreksi: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4
+[2026-09-17 21:34:48] [RUNTIME] Output target: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4
+[2026-09-17 21:34:48] [RUNTIME] [ConflictCheck] outputDir=C:\Users\Administrator\Downloads\YTUI filename=可惜夜 - 1080p.mp4 fullPath=C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4 exists=true
+[2026-09-17 21:34:48] [RUNTIME] [ConflictDialog] opened=true path=C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4
+[2026-09-17 21:35:28] [RUNTIME] File sudah ada, download dibatalkan: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4
+[2026-09-17 21:35:30] [RUNTIME] yt-dlp path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\yt-dlp.exe
+[2026-09-17 21:35:30] [RUNTIME] ffmpeg path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\ffmpeg.exe
+[2026-09-17 21:35:30] [RUNTIME] aria2c path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\aria2c.exe
+[2026-09-17 21:35:30] [RUNTIME] deno path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\deno.exe
+[2026-09-17 21:35:30] [RUNTIME] Download dimulai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq -> C:\Users\Administrator\Downloads\YTUI
+[2026-09-17 21:35:35] [RUNTIME] [ConflictCheck] Title kosong dalam probe, mengambil title dari info dict: C:\Users\Administrator\Downloads\YTUI\ - 1080p.mp4
+[2026-09-17 21:35:40] [RUNTIME] [ConflictCheck] Path dikoreksi: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4
+[2026-09-17 21:35:40] [RUNTIME] Output target: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4
+[2026-09-17 21:35:40] [RUNTIME] [ConflictCheck] outputDir=C:\Users\Administrator\Downloads\YTUI filename=可惜夜 - 1080p.mp4 fullPath=C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4 exists=true
+[2026-09-17 21:35:40] [RUNTIME] [ConflictDialog] opened=true path=C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4
+[2026-09-17 21:35:42] [RUNTIME] File sudah ada, rename: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4 -> C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p (1).mp4
+[2026-09-17 21:36:13] [RUNTIME] Download selesai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq
+[2026-09-17 21:36:22] [RUNTIME] yt-dlp path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\yt-dlp.exe
+[2026-09-17 21:36:22] [RUNTIME] ffmpeg path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\ffmpeg.exe
+[2026-09-17 21:36:22] [RUNTIME] aria2c path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\aria2c.exe
+[2026-09-17 21:36:22] [RUNTIME] deno path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\deno.exe
+[2026-09-17 21:36:22] [RUNTIME] Download dimulai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq -> C:\Users\Administrator\Downloads\YTUI
+[2026-09-17 21:36:27] [RUNTIME] [ConflictCheck] Title kosong dalam probe, mengambil title dari info dict: C:\Users\Administrator\Downloads\YTUI\ - 1080p.mp4
+[2026-09-17 21:36:32] [RUNTIME] [ConflictCheck] Path dikoreksi: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4
+[2026-09-17 21:36:32] [RUNTIME] Output target: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4
+[2026-09-17 21:36:32] [RUNTIME] [ConflictCheck] outputDir=C:\Users\Administrator\Downloads\YTUI filename=可惜夜 - 1080p.mp4 fullPath=C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4 exists=true
+[2026-09-17 21:36:32] [RUNTIME] [ConflictDialog] opened=true path=C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4
+[2026-09-17 21:36:36] [RUNTIME] File sudah ada, overwrite: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4
+[2026-09-17 21:36:42] [RUNTIME] Download selesai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq
+[2026-09-17 21:37:04] [RUNTIME] yt-dlp path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\yt-dlp.exe
+[2026-09-17 21:37:04] [RUNTIME] ffmpeg path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\ffmpeg.exe
+[2026-09-17 21:37:04] [RUNTIME] aria2c path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\aria2c.exe
+[2026-09-17 21:37:04] [RUNTIME] deno path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\deno.exe
+[2026-09-17 21:37:04] [RUNTIME] Download dimulai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq -> C:\Users\Administrator\Downloads\YTUI
+[2026-09-17 21:37:07] [RUNTIME] User membatalkan download
+[2026-09-17 21:37:13] [RUNTIME] yt-dlp path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\yt-dlp.exe
+[2026-09-17 21:37:13] [RUNTIME] ffmpeg path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\ffmpeg.exe
+[2026-09-17 21:37:13] [RUNTIME] aria2c path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\aria2c.exe
+[2026-09-17 21:37:13] [RUNTIME] deno path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\deno.exe
+[2026-09-17 21:37:13] [RUNTIME] Download dimulai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq -> C:\Users\Administrator\Downloads\YTUI
+[2026-09-17 21:37:20] [RUNTIME] [ConflictCheck] Title kosong dalam probe, mengambil title dari info dict: C:\Users\Administrator\Downloads\YTUI\ - 1080p.mp4
+[2026-09-17 21:37:25] [RUNTIME] [ConflictCheck] Path dikoreksi: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4
+[2026-09-17 21:37:25] [RUNTIME] Output target: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4
+[2026-09-17 21:37:25] [RUNTIME] [ConflictCheck] outputDir=C:\Users\Administrator\Downloads\YTUI filename=可惜夜 - 1080p.mp4 fullPath=C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4 exists=true
+[2026-09-17 21:37:25] [RUNTIME] File sudah ada, rename: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4 -> C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p (1).mp4
+[2026-09-17 21:37:47] [RUNTIME] User membatalkan download
+[2026-09-17 21:38:13] [RUNTIME] yt-dlp path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\yt-dlp.exe
+[2026-09-17 21:38:13] [RUNTIME] ffmpeg path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\ffmpeg.exe
+[2026-09-17 21:38:13] [RUNTIME] aria2c path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\aria2c.exe
+[2026-09-17 21:38:13] [RUNTIME] deno path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\deno.exe
+[2026-09-17 21:38:13] [RUNTIME] Download dimulai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq -> C:\Users\Administrator\Downloads\YTUI
+[2026-09-17 21:38:22] [RUNTIME] [ConflictCheck] Title kosong dalam probe, mengambil title dari info dict: C:\Users\Administrator\Downloads\YTUI\ - 1080p.mp4
+[2026-09-17 21:38:28] [RUNTIME] [ConflictCheck] Path dikoreksi: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4
+[2026-09-17 21:38:28] [RUNTIME] Output target: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4
+[2026-09-17 21:38:28] [RUNTIME] [ConflictCheck] outputDir=C:\Users\Administrator\Downloads\YTUI filename=可惜夜 - 1080p.mp4 fullPath=C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4 exists=true
+[2026-09-17 21:38:28] [RUNTIME] File sudah ada, overwrite: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4
+[2026-09-17 21:38:33] [RUNTIME] Download selesai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq
+[2026-09-17 21:39:41] [RUNTIME] yt-dlp path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\yt-dlp.exe
+[2026-09-17 21:39:41] [RUNTIME] ffmpeg path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\ffmpeg.exe
+[2026-09-17 21:39:41] [RUNTIME] aria2c path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\aria2c.exe
+[2026-09-17 21:39:41] [RUNTIME] deno path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\deno.exe
+[2026-09-17 21:39:41] [RUNTIME] Download dimulai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq -> C:\Users\Administrator\Downloads\YTUI
+[2026-09-17 21:39:49] [RUNTIME] [ConflictCheck] Title kosong dalam probe, mengambil title dari info dict: C:\Users\Administrator\Downloads\YTUI\ - 1080p.mp4
+[2026-09-17 21:39:55] [RUNTIME] [ConflictCheck] Path dikoreksi: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4
+[2026-09-17 21:39:55] [RUNTIME] Output target: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4
+[2026-09-17 21:39:55] [RUNTIME] [ConflictCheck] outputDir=C:\Users\Administrator\Downloads\YTUI filename=可惜夜 - 1080p.mp4 fullPath=C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4 exists=true
+[2026-09-17 21:39:55] [RUNTIME] File sudah ada, download dibatalkan: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 1080p.mp4

@@ -177,7 +177,11 @@ func DownloadDefault(ctx context.Context, req DownloadRequest) (DownloadResult, 
 		return DownloadResult{}, err
 	}
 
-	if _, statErr := os.Stat(targetPath); statErr == nil {
+	_, statErr := os.Stat(targetPath)
+	logger.L.Runtime("[ConflictCheck] outputDir=%s filename=%s fullPath=%s exists=%v",
+		filepath.Dir(targetPath), filepath.Base(targetPath), targetPath, statErr == nil)
+
+	if statErr == nil {
 		choice, err := handleExistingFile(ctx, targetPath)
 		if err != nil {
 			return DownloadResult{}, err

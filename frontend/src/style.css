@@ -397,9 +397,12 @@ button:disabled {
   position: fixed;
   inset: 0;
   z-index: 50;
+  padding: 20px;
+}
+
+.exists-dialog:not([hidden]) {
   display: grid;
   place-items: center;
-  padding: 20px;
 }
 
 .exists-backdrop {
