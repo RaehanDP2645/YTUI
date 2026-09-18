@@ -479,3 +479,63 @@
 [2026-09-18 13:38:04] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
 [2026-09-18 13:38:05] [RUNTIME] BGUTIL starting
 [2026-09-18 13:38:05] [RUNTIME] BGUTIL already running externally
+[2026-09-18 13:38:38] [RUNTIME] yt-dlp path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\yt-dlp.exe
+[2026-09-18 13:38:38] [RUNTIME] ffmpeg path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\ffmpeg.exe
+[2026-09-18 13:38:38] [RUNTIME] aria2c path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\aria2c.exe
+[2026-09-18 13:38:38] [RUNTIME] quickjs path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\qjs.exe
+[2026-09-18 13:38:38] [RUNTIME] Download dimulai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq -> C:\Users\Administrator\Downloads\YTUI
+[2026-09-18 13:38:43] [RUNTIME] [ConflictCheck] Title kosong dalam probe, mengambil title dari info dict: C:\Users\Administrator\Downloads\YTUI\ - 720p.mp4
+[2026-09-18 13:38:47] [RUNTIME] [ConflictCheck] Path dikoreksi: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 720p.mp4
+[2026-09-18 13:38:47] [RUNTIME] Output target: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 720p.mp4
+[2026-09-18 13:38:47] [RUNTIME] [ConflictCheck] outputDir=C:\Users\Administrator\Downloads\YTUI filename=可惜夜 - 720p.mp4 fullPath=C:\Users\Administrator\Downloads\YTUI\可惜夜 - 720p.mp4 exists=false
+[2026-09-18 13:39:14] [RUNTIME] Download selesai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq
+[2026-09-18 13:40:52] [RUNTIME] yt-dlp path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\yt-dlp.exe
+[2026-09-18 13:40:52] [RUNTIME] ffmpeg path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\ffmpeg.exe
+[2026-09-18 13:40:52] [RUNTIME] aria2c path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\aria2c.exe
+[2026-09-18 13:40:52] [RUNTIME] quickjs path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\qjs.exe
+[2026-09-18 13:40:52] [RUNTIME] Download dimulai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq -> C:\Users\Administrator\Downloads\YTUI
+[2026-09-18 13:40:56] [RUNTIME] [ConflictCheck] Title kosong dalam probe, mengambil title dari info dict: C:\Users\Administrator\Downloads\YTUI\ - 480p.mp4
+[2026-09-18 13:41:01] [RUNTIME] [ConflictCheck] Path dikoreksi: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 480p.mp4
+[2026-09-18 13:41:01] [RUNTIME] Output target: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 480p.mp4
+[2026-09-18 13:41:01] [RUNTIME] [ConflictCheck] outputDir=C:\Users\Administrator\Downloads\YTUI filename=可惜夜 - 480p.mp4 fullPath=C:\Users\Administrator\Downloads\YTUI\可惜夜 - 480p.mp4 exists=false
+[2026-09-18 13:41:29] [RUNTIME] Download selesai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq
+[2026-09-18 13:43:46] [RUNTIME] yt-dlp path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\yt-dlp.exe
+[2026-09-18 13:43:46] [RUNTIME] ffmpeg path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\ffmpeg.exe
+[2026-09-18 13:43:46] [RUNTIME] aria2c path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\aria2c.exe
+[2026-09-18 13:43:46] [RUNTIME] quickjs path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\qjs.exe
+[2026-09-18 13:43:46] [RUNTIME] Download dimulai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq -> C:\Users\Administrator\Downloads\YTUI
+[2026-09-18 13:43:51] [RUNTIME] [ConflictCheck] Title kosong dalam probe, mengambil title dari info dict: C:\Users\Administrator\Downloads\YTUI\ - 360p.mp4
+[2026-09-18 13:43:55] [RUNTIME] [ConflictCheck] Path dikoreksi: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 360p.mp4
+[2026-09-18 13:43:55] [RUNTIME] Output target: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 360p.mp4
+[2026-09-18 13:43:55] [RUNTIME] [ConflictCheck] outputDir=C:\Users\Administrator\Downloads\YTUI filename=可惜夜 - 360p.mp4 fullPath=C:\Users\Administrator\Downloads\YTUI\可惜夜 - 360p.mp4 exists=false
+[2026-09-18 13:44:21] [RUNTIME] Download selesai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq
+[2026-09-18 13:45:09] [RUNTIME] yt-dlp path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\yt-dlp.exe
+[2026-09-18 13:45:09] [RUNTIME] ffmpeg path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\ffmpeg.exe
+[2026-09-18 13:45:09] [RUNTIME] aria2c path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\aria2c.exe
+[2026-09-18 13:45:09] [RUNTIME] quickjs path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\qjs.exe
+[2026-09-18 13:45:09] [RUNTIME] Download dimulai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq -> C:\Users\Administrator\Downloads\YTUI
+[2026-09-18 13:45:14] [RUNTIME] [ConflictCheck] Title kosong dalam probe, mengambil title dari info dict: C:\Users\Administrator\Downloads\YTUI\ - 256K.webm
+[2026-09-18 13:45:19] [RUNTIME] [ConflictCheck] Path dikoreksi: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 256K.webm
+[2026-09-18 13:45:19] [RUNTIME] Output target: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 256K.mp3
+[2026-09-18 13:45:19] [RUNTIME] [ConflictCheck] outputDir=C:\Users\Administrator\Downloads\YTUI filename=可惜夜 - 256K.mp3 fullPath=C:\Users\Administrator\Downloads\YTUI\可惜夜 - 256K.mp3 exists=false
+[2026-09-18 13:45:42] [RUNTIME] Download selesai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq
+[2026-09-18 13:46:23] [RUNTIME] yt-dlp path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\yt-dlp.exe
+[2026-09-18 13:46:23] [RUNTIME] ffmpeg path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\ffmpeg.exe
+[2026-09-18 13:46:23] [RUNTIME] aria2c path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\aria2c.exe
+[2026-09-18 13:46:23] [RUNTIME] quickjs path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\qjs.exe
+[2026-09-18 13:46:23] [RUNTIME] Download dimulai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq -> C:\Users\Administrator\Downloads\YTUI
+[2026-09-18 13:46:27] [RUNTIME] [ConflictCheck] Title kosong dalam probe, mengambil title dari info dict: C:\Users\Administrator\Downloads\YTUI\ - 192K.webm
+[2026-09-18 13:46:32] [RUNTIME] [ConflictCheck] Path dikoreksi: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 192K.webm
+[2026-09-18 13:46:32] [RUNTIME] Output target: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 192K.mp3
+[2026-09-18 13:46:32] [RUNTIME] [ConflictCheck] outputDir=C:\Users\Administrator\Downloads\YTUI filename=可惜夜 - 192K.mp3 fullPath=C:\Users\Administrator\Downloads\YTUI\可惜夜 - 192K.mp3 exists=false
+[2026-09-18 13:46:55] [RUNTIME] Download selesai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq
+[2026-09-18 13:47:04] [RUNTIME] yt-dlp path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\yt-dlp.exe
+[2026-09-18 13:47:04] [RUNTIME] ffmpeg path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\ffmpeg.exe
+[2026-09-18 13:47:04] [RUNTIME] aria2c path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\aria2c.exe
+[2026-09-18 13:47:04] [RUNTIME] quickjs path: C:\Users\Administrator\Documents\00 project mee\YTUI\bin\qjs.exe
+[2026-09-18 13:47:04] [RUNTIME] Download dimulai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq -> C:\Users\Administrator\Downloads\YTUI
+[2026-09-18 13:47:20] [RUNTIME] [ConflictCheck] Title kosong dalam probe, mengambil title dari info dict: C:\Users\Administrator\Downloads\YTUI\ - 128K.webm
+[2026-09-18 13:47:34] [RUNTIME] [ConflictCheck] Path dikoreksi: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 128K.webm
+[2026-09-18 13:47:34] [RUNTIME] Output target: C:\Users\Administrator\Downloads\YTUI\可惜夜 - 128K.mp3
+[2026-09-18 13:47:34] [RUNTIME] [ConflictCheck] outputDir=C:\Users\Administrator\Downloads\YTUI filename=可惜夜 - 128K.mp3 fullPath=C:\Users\Administrator\Downloads\YTUI\可惜夜 - 128K.mp3 exists=false
+[2026-09-18 13:47:57] [RUNTIME] Download selesai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq
