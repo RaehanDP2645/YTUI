@@ -577,6 +577,7 @@ function updateDownloadItemDom(url, item) {
         <strong></strong>
         <span class="download-status"></span>
       </div>
+      <div class="download-item-msg"></div>
       <div class="download-item-progress"><div></div></div>
       <div class="download-item-meta">
         <span class="pct"></span>
@@ -589,6 +590,7 @@ function updateDownloadItemDom(url, item) {
       root,
       title: root.querySelector(':scope > .download-item-top > strong'),
       status: root.querySelector(':scope > .download-item-top > .download-status'),
+      message: root.querySelector(':scope > .download-item-msg'),
       fill: root.querySelector(':scope > .download-item-progress > div'),
       percent: root.querySelector(':scope > .download-item-meta > .pct'),
       speed: root.querySelector(':scope > .download-item-meta > .spd'),
@@ -605,6 +607,8 @@ function updateDownloadItemDom(url, item) {
   els.title.title = item.url;
   els.status.textContent = item.status;
   els.status.className = `download-status ${item.status}`;
+  els.message.textContent = item.message || '';
+  els.message.style.display = item.message ? '' : 'none';
   els.speed.textContent = `Speed: ${item.speed || '-'}`;
   els.eta.textContent = `ETA: ${item.eta || '-'}`;
 

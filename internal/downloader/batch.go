@@ -44,16 +44,38 @@ func DownloadBatch(ctx context.Context, req BatchDownloadRequest) (BatchDownload
 	batchCtx, cancel := context.WithCancel(ctx)
 	defer cancel()
 
-	jobs := make(chan batchJob)
-	results := make(chan batchJobResult)
+	// Validasi URL: hanya baris yang valid masuk queue dan diproses worker.
+	// Baris invalid ditandai failed per-item tanpa dikirim ke yt-dlp dan
+	// tidak menghentikan batch URL lainnya.
+	validURLs := make([]string, 0, len(urls))
+	invalidCount := 0
 
 	for _, url := range urls {
+		if err := validateYoutubeURL(url); err != nil {
+			invalidCount++
+			emitProgress(batchCtx, ProgressEvent{
+				URL:     url,
+				Status:  "failed",
+				Message: err.Error(),
+			})
+			logger.L.Error("Batch item URL tidak valid: %s - err: %v", url, err)
+			continue
+		}
+
+		validURLs = append(validURLs, url)
 		emitProgress(batchCtx, ProgressEvent{
 			URL:     url,
 			Status:  "queued",
 			Message: "Queued",
 		})
 	}
+
+	if invalidCount > 0 {
+		logger.L.Runtime("Batch: %d URL valid (queued), %d URL tidak valid", len(validURLs), invalidCount)
+	}
+
+	jobs := make(chan batchJob)
+	results := make(chan batchJobResult)
 
 	var wg sync.WaitGroup
 	for workerID := 0; workerID < parallel; workerID++ {
@@ -88,7 +110,7 @@ func DownloadBatch(ctx context.Context, req BatchDownloadRequest) (BatchDownload
 	go func() {
 		defer close(jobs)
 
-		for _, url := range urls {
+		for _, url := range validURLs {
 			if batchCtx.Err() != nil {
 				return
 			}
@@ -103,7 +125,7 @@ func DownloadBatch(ctx context.Context, req BatchDownloadRequest) (BatchDownload
 	}()
 
 	completed := 0
-	failed := 0
+	failed := invalidCount
 
 	for result := range results {
 		if result.Err != nil {

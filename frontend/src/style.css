@@ -339,6 +339,12 @@ button:disabled {
   color: #475569;
 }
 
+.download-item-msg {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #991b1b;
+}
+
 .download-item-progress {
   height: 8px;
   overflow: hidden;
