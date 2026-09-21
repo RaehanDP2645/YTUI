@@ -197,6 +197,7 @@ const existsOverwriteBtn = document.querySelector('#existsOverwrite');
 const existsAbortBtn = document.querySelector('#existsAbort');
 
 let selectedBatchFile = '';
+let batchActive = false;
 
 const existsQueue = [];
 let existsActive = null;
@@ -237,6 +238,7 @@ downloadBtn.addEventListener('click', async () => {
     return;
   }
 
+  batchActive = false;
   downloadItems.clear();
   downloadItemEls.clear();
   renderDownloadList();
@@ -322,9 +324,15 @@ batchDownloadBtn.addEventListener('click', async () => {
   downloadItems.clear();
   downloadItemEls.clear();
   renderDownloadList();
+  batchActive = true;
 
   batchDownloadBtn.disabled = true;
   downloadBtn.disabled = true;
+
+  progressPercent.textContent = '0%';
+  progressFill.style.width = '0%';
+  progressSpeed.textContent = 'Speed: -';
+  progressEta.textContent = 'ETA: -';
 
   try {
     const result = await DownloadBatch({
@@ -343,6 +351,7 @@ batchDownloadBtn.addEventListener('click', async () => {
   } catch (error) {
     setStatus(formatError(error), 'error');
   } finally {
+    batchActive = false;
     batchDownloadBtn.disabled = false;
     downloadBtn.disabled = false;
   }
@@ -522,6 +531,18 @@ function clearProgressViews() {
 }
 
 function updateProgress(event) {
+  if (batchActive && event.status !== 'overall') {
+    return;
+  }
+
+  if (event.status === 'overall') {
+    const p = Math.max(0, Math.min(100, Number(event.percent || 0)));
+    progressStatus.textContent = event.message || 'Batch progress';
+    progressPercent.textContent = `${p.toFixed(1)}%`;
+    progressFill.style.width = `${p}%`;
+    return;
+  }
+
   progressStatus.textContent = event.message || event.status || 'Working';
   progressSpeed.textContent = `Speed: ${event.speed || '-'}`;
   progressEta.textContent = `ETA: ${event.eta || '-'}`;

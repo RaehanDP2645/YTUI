@@ -44,6 +44,10 @@ func DownloadBatch(ctx context.Context, req BatchDownloadRequest) (BatchDownload
 	batchCtx, cancel := context.WithCancel(ctx)
 	defer cancel()
 
+	// progressTracker menempel di batchCtx sehingga seluruh event progress item
+	// (dari validasi, worker, maupun batcher) tercatat dan overall dipancarkan.
+	batchCtx = context.WithValue(batchCtx, progressTrackerKey, newProgressTracker())
+
 	// Validasi URL: hanya baris yang valid masuk queue dan diproses worker.
 	// Baris invalid ditandai failed per-item tanpa dikirim ke yt-dlp dan
 	// tidak menghentikan batch URL lainnya.
@@ -130,12 +134,25 @@ func DownloadBatch(ctx context.Context, req BatchDownloadRequest) (BatchDownload
 	for result := range results {
 		if result.Err != nil {
 			failed++
+			// Jalur error yang tidak sempat mengirim event terminal (mis. gagal
+			// menentukan nama file output di awal DownloadDefault) dipastikan
+			// tetap tercatat selesai/gagal sehingga overall batch bisa mencapai 100%.
+			emitProgress(batchCtx, ProgressEvent{
+				URL:     result.URL,
+				Status:  "failed",
+				Message: result.Err.Error(),
+			})
 			logger.L.Error("Batch item gagal: %s - err:%v", result.URL, result.Err)
 			continue
 		}
 
 		completed++
 		logger.L.Runtime("Batch item selesai: %s", result.URL)
+	}
+
+	// Pastikan event overall final terkirim (seluruh item sudah berakhir).
+	if tracker, ok := batchCtx.Value(progressTrackerKey).(*progressTracker); ok {
+		tracker.emitOverall(batchCtx)
 	}
 
 	logger.L.Runtime("Batch selesai: total=%d, sukses=%d, gagal=%d", len(urls), completed, failed)

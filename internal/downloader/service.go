@@ -417,6 +417,14 @@ func parseLegacyProgress(url string, line string) (ProgressEvent, bool) {
 
 func emitProgress(ctx context.Context, event ProgressEvent) {
 	runtime.EventsEmit(ctx, progressEventName, event)
+
+	// Dalam konteks batch, event item juga dicatat ke progressTracker dan
+	// event overall dikirim setelahnya sehingga frontend bisa membedakan
+	// progress item (event dengan URL) dari overall batch (status "overall").
+	if tracker, ok := ctx.Value(progressTrackerKey).(*progressTracker); ok {
+		tracker.record(event)
+		tracker.emitOverall(ctx)
+	}
 }
 
 func mapDownloadKind(downloadType DownloadType) ytdlp.DownloadKind {

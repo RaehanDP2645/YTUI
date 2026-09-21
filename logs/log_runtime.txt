@@ -541,3 +541,5 @@
 [2026-09-18 13:47:57] [RUNTIME] Download selesai: https://music.youtube.com/watch?v=t1mjjpBlMMA&si=7TF6xDQXy6Yg5blq
 [2026-09-18 13:49:53] [RUNTIME] App YTUI shutdown: menghentikan BGUTIL server
 [2026-09-18 13:49:53] [RUNTIME] BGUTIL stopping (server eksternal dibiarkan berjalan)
+[2026-09-21 15:36:25] [RUNTIME] App YTUI dimulai
+[2026-09-21 15:36:26] [RUNTIME] Tools siap di: C:\Users\Administrator\AppData\Local\YTUI\tools
