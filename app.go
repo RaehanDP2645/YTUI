@@ -6,6 +6,7 @@ import (
 	"YTUI/internal/potserver"
 	"context"
 	"encoding/base64"
+	"errors"
 	"fmt"
 	"sync"
 
@@ -20,6 +21,11 @@ type App struct {
 	cancel context.CancelFunc
 
 	potServer *potserver.Manager
+
+	// batchSession menyimpan state batch terakhir (BatchSession) agar item gagal
+	// bisa di-retry satu per satu. batchSessionMu melindungi aksesnya.
+	batchSessionMu sync.Mutex
+	batchSession   *downloader.BatchSession
 
 	// fileExistsMu melindungi state dialog "file sudah ada".
 	fileExistsMu     sync.Mutex
@@ -110,7 +116,51 @@ func (a *App) SelectBatchFile() (string, error) {
 func (a *App) DownloadBatch(req downloader.BatchDownloadRequest) (downloader.BatchDownloadResult, error) {
 	logger.L.Runtime("Batch download dipanggil dari UI: %s", req.FilePath)
 
-	return downloader.DownloadBatch(a.ctx, req)
+	res, err := downloader.DownloadBatch(a.ctx, req)
+	if err != nil {
+		a.setBatchSession(nil)
+		return res, err
+	}
+
+	a.setBatchSession(res.Session)
+	return res, nil
+}
+
+func (a *App) setBatchSession(s *downloader.BatchSession) {
+	a.batchSessionMu.Lock()
+	a.batchSession = s
+	a.batchSessionMu.Unlock()
+}
+
+func (a *App) getBatchSession() *downloader.BatchSession {
+	a.batchSessionMu.Lock()
+	defer a.batchSessionMu.Unlock()
+	return a.batchSession
+}
+
+// RetryDownload mengulang download satu item batch yang berstatus failed.
+// Memakai session batch terakhir, konteks baru yang masih bisa dibatalkan lewat
+// CancelDownload, dan flow download yang sudah ada.
+func (a *App) RetryDownload(url string) (downloader.DownloadResult, error) {
+	session := a.getBatchSession()
+	if session == nil {
+		return downloader.DownloadResult{}, errors.New("tidak ada batch yang bisa di-retry")
+	}
+
+	if a.cancel != nil {
+		return downloader.DownloadResult{}, errors.New("masih ada download aktif")
+	}
+
+	logger.L.Runtime("Retry download item: %s", url)
+
+	retryCtx, cancel := context.WithCancel(a.ctx)
+	a.cancel = cancel
+
+	defer func() {
+		a.cancel = nil
+	}()
+
+	return session.Retry(retryCtx, url)
 }
 
 // resolveExistingFile dipanggil oleh downloader saat file output sudah ada.

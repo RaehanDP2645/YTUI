@@ -1,5 +1,5 @@
 import './style.css';
-import { CancelDownload, DownloadBatch, DownloadDefault, GetFileExistsPolicy, ResolveFileExists, SelectBatchFile, SetFileExistsPolicy } from '../wailsjs/go/main/App';
+import { CancelDownload, DownloadBatch, DownloadDefault, GetFileExistsPolicy, ResolveFileExists, RetryDownload, SelectBatchFile, SetFileExistsPolicy } from '../wailsjs/go/main/App';
 import { EventsOn } from '../wailsjs/runtime/runtime';
 
 document.querySelector('#app').innerHTML = `
@@ -198,6 +198,8 @@ const existsAbortBtn = document.querySelector('#existsAbort');
 
 let selectedBatchFile = '';
 let batchActive = false;
+let retryActive = false;
+const retryingUrls = new Set();
 
 const existsQueue = [];
 let existsActive = null;
@@ -238,6 +240,8 @@ downloadBtn.addEventListener('click', async () => {
     return;
   }
 
+  retryActive = false;
+  retryingUrls.clear();
   batchActive = false;
   downloadItems.clear();
   downloadItemEls.clear();
@@ -321,6 +325,13 @@ batchDownloadBtn.addEventListener('click', async () => {
     return;
   }
 
+  if (retryActive) {
+    setStatus('Ada retry yang masih berjalan.', 'error');
+    return;
+  }
+
+  retryActive = false;
+  retryingUrls.clear();
   downloadItems.clear();
   downloadItemEls.clear();
   renderDownloadList();
@@ -531,7 +542,7 @@ function clearProgressViews() {
 }
 
 function updateProgress(event) {
-  if (batchActive && event.status !== 'overall') {
+  if ((batchActive || retryActive) && event.status !== 'overall') {
     return;
   }
 
@@ -605,7 +616,18 @@ function updateDownloadItemDom(url, item) {
         <span class="spd"></span>
         <span class="eta"></span>
       </div>
+      <div class="download-item-actions"></div>
     `;
+
+    const retryBtn = document.createElement('button');
+    retryBtn.type = 'button';
+    retryBtn.className = 'retry-button';
+    retryBtn.textContent = 'Retry';
+    retryBtn.hidden = true;
+    retryBtn.addEventListener('click', () => retryItem(url));
+
+    const actions = root.querySelector(':scope > .download-item-actions');
+    actions.appendChild(retryBtn);
 
     els = {
       root,
@@ -616,6 +638,7 @@ function updateDownloadItemDom(url, item) {
       percent: root.querySelector(':scope > .download-item-meta > .pct'),
       speed: root.querySelector(':scope > .download-item-meta > .spd'),
       eta: root.querySelector(':scope > .download-item-meta > .eta'),
+      retry: retryBtn,
     };
 
     downloadList.appendChild(root);
@@ -638,6 +661,54 @@ function updateDownloadItemDom(url, item) {
     { fill: els.fill, text: els.percent },
     { status: item.status, percent }
   );
+
+  const isFailed = item.status === 'failed';
+  const retryBusy = retryingUrls.has(url);
+  els.retry.hidden = !isFailed;
+  els.retry.disabled = !isFailed || retryBusy;
+}
+
+async function retryItem(url) {
+  if (retryingUrls.has(url)) {
+    return;
+  }
+
+  const item = downloadItems.get(url);
+  if (!item || item.status !== 'failed') {
+    return;
+  }
+
+  retryingUrls.add(url);
+  retryActive = true;
+
+  const els = downloadItemEls.get(url);
+  if (els?.retry) {
+    els.retry.disabled = true;
+  }
+  batchDownloadBtn.disabled = true;
+  downloadBtn.disabled = true;
+  cancelDownloadBtn.disabled = false;
+
+  try {
+    const result = await RetryDownload(url);
+    setStatus(`Retry selesai: ${result.message}`, 'success');
+  } catch (error) {
+    setStatus(`Retry gagal: ${formatError(error)}`, 'error');
+  } finally {
+    retryActive = false;
+    retryingUrls.delete(url);
+
+    for (const [retryUrl] of downloadItems) {
+      const target = downloadItemEls.get(retryUrl);
+      if (target?.retry) {
+        target.retry.disabled = downloadItems.get(retryUrl)?.status !== 'failed';
+      }
+    }
+
+    batchDownloadBtn.disabled = false;
+    downloadBtn.disabled = false;
+    cancelDownloadBtn.disabled = true;
+  }
 }
 
 function showNextExistsDialog() {

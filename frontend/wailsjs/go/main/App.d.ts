@@ -14,6 +14,8 @@ export function Greet(arg1:string):Promise<string>;
 
 export function ResolveFileExists(arg1:string,arg2:string,arg3:boolean):Promise<void>;
 
+export function RetryDownload(arg1:string):Promise<downloader.DownloadResult>;
+
 export function SelectBatchFile():Promise<string>;
 
 export function SetFileExistsPolicy(arg1:string):Promise<void>;

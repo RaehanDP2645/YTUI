@@ -29,9 +29,10 @@ type BatchDownloadRequest struct {
 }
 
 type BatchDownloadResult struct {
-	Message   string `json:"message"`
-	Total     int    `json:"total"`
-	Completed int    `json:"completed"`
-	Failed    int    `json:"failed"`
-	OutputDir string `json:"outputDir"`
+	Message   string        `json:"message"`
+	Total     int           `json:"total"`
+	Completed int           `json:"completed"`
+	Failed    int           `json:"failed"`
+	OutputDir string        `json:"outputDir"`
+	Session   *BatchSession `json:"-"`
 }

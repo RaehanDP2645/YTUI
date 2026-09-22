@@ -44,9 +44,16 @@ func DownloadBatch(ctx context.Context, req BatchDownloadRequest) (BatchDownload
 	batchCtx, cancel := context.WithCancel(ctx)
 	defer cancel()
 
+	// BatchSession menyimpan state batch yang bertahan setelah fungsi ini selesai,
+	// sehingga item gagal bisa di-retry satu per satu. Seluruh event progress item
+	// (dari validasi, worker, maupun batcher) disinkronkan ke session via emitProgress.
+	session := newBatchSession(ctx, req, urls)
+	batchCtx = context.WithValue(batchCtx, batchSessionKey, session)
+
 	// progressTracker menempel di batchCtx sehingga seluruh event progress item
 	// (dari validasi, worker, maupun batcher) tercatat dan overall dipancarkan.
-	batchCtx = context.WithValue(batchCtx, progressTrackerKey, newProgressTracker())
+	// Tracker milik session dipakai supaya retry berbagi state yang sama.
+	batchCtx = context.WithValue(batchCtx, progressTrackerKey, session.tracker)
 
 	// Validasi URL: hanya baris yang valid masuk queue dan diproses worker.
 	// Baris invalid ditandai failed per-item tanpa dikirim ke yt-dlp dan
@@ -162,6 +169,7 @@ func DownloadBatch(ctx context.Context, req BatchDownloadRequest) (BatchDownload
 		Completed: completed,
 		Failed:    failed,
 		OutputDir: req.OutputDir,
+		Session:   session,
 	}, nil
 }
 

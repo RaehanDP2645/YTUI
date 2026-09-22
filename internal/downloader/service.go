@@ -26,6 +26,11 @@ const progressEventName = "download:progress"
 
 const progressFlushInterval = 100 * time.Millisecond
 
+// emitEvent adalah titik injection untuk test deterministik (default = runtime.EventsEmit).
+// runtime.EventsEmit membutuhkan binding runtime yang tidak tersedia di unit test,
+// sehingga seluruh pengiriman event progress lewat seam ini.
+var emitEvent = runtime.EventsEmit
+
 var progressPattern = regexp.MustCompile(`\[download\]\s+(\d+(?:\.\d+)?)%.*?at\s+([^\s]+).*?ETA\s+([^\s]+)`)
 
 // progressBatcher menggabungkan update progress yang datang sangat cepat dan
@@ -416,7 +421,13 @@ func parseLegacyProgress(url string, line string) (ProgressEvent, bool) {
 }
 
 func emitProgress(ctx context.Context, event ProgressEvent) {
-	runtime.EventsEmit(ctx, progressEventName, event)
+	emitEvent(ctx, progressEventName, event)
+
+	// Session batch (jika ada di context) menyinkronkan state item-nya dari
+	// aliran event yang sama, termasuk event retry (key identity = URL).
+	if session, ok := ctx.Value(batchSessionKey).(*BatchSession); ok {
+		session.applyEvent(event)
+	}
 
 	// Dalam konteks batch, event item juga dicatat ke progressTracker dan
 	// event overall dikirim setelahnya sehingga frontend bisa membedakan

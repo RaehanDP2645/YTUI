@@ -369,6 +369,22 @@ button:disabled {
   font-size: 12px;
 }
 
+.download-item-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.retry-button {
+  background: #b45309;
+  font-size: 12px;
+  padding: 4px 12px;
+}
+
+.retry-button:not(:disabled):hover {
+  background: #92400e;
+}
+
 .danger-button {
   background: #dc2626;
 }

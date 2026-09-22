@@ -4,8 +4,6 @@ import (
 	"context"
 	"fmt"
 	"sync"
-
-	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
 // progressTrackerKeyType membedakan key context tracker dari key lain.
@@ -63,7 +61,7 @@ func (t *progressTracker) overall() float64 {
 // emitOverall mengirim event progress overall ke frontend.
 func (t *progressTracker) emitOverall(ctx context.Context) {
 	overall := t.overall()
-	runtime.EventsEmit(ctx, progressEventName, ProgressEvent{
+	emitEvent(ctx, progressEventName, ProgressEvent{
 		Status:  "overall",
 		Percent: overall,
 		Message: fmt.Sprintf("Overall: %.1f%%", overall),
