@@ -1,2 +1,3 @@
 build/windows/installer/*.nsi linguist-generated=true
 build/windows/installer/*.nsh linguist-generated=true
+bin/yt_dlp_plugins/** linguist-vendored
